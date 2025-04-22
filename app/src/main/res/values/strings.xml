@@ -1,0 +1,20 @@
+<resources>
+    <string name="please_wait">请稍候...</string>
+
+    <string name="menu_album">歌单</string>
+    <string name="menu_video">视频</string>
+    <string name="playlist">播放列表</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="play_all">播放全部</string>
+    <string name="slide_top">滑到顶部</string>
+
+    <string name="play_mode_loop">列表循环</string>
+    <string name="play_mode_shuffle">随机播放</string>
+    <string name="play_mode_single">单曲循环</string>
+    <string name="duration_default">00:00</string>
+    <string name="lrc_no">暂无歌词</string>
+    <string name="lrc_loading">歌词加载中...</string>
+    <string name="search">搜索</string>
+</resources>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_index"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/black_9"
+        android:textSize="@dimen/sp12"
+        tools:text="1" />
+
+    <run.perry.lz.ui.components.SquareImageView
+        android:id="@+id/iv_playing"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_playing"
+        android:tint="@color/purple_700" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/sp14"
+            tools:text="一个夜晚（相信未来版）" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp2" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_sq"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp14"
+                android:layout_marginEnd="@dimen/dp4"
+                android:adjustViewBounds="true"
+                android:paddingTop="@dimen/dp2"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_sq"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_cached"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp14"
+                android:layout_marginEnd="@dimen/dp4"
+                android:adjustViewBounds="true"
+                android:paddingTop="@dimen/dp2"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_cached"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black_9"
+                android:textSize="12sp"
+                tools:text="李志" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ib_more"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:background="?attr/actionBarItemBackground"
+        android:src="@drawable/ic_more_vert"
+        android:tint="@color/normal" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Main"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+        <!--今日头条屏幕适配-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375" />
+
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="812" />
+
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+        <activity
+            android:name=".ui.BootActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.screen.MainActivity" />
+        <activity
+            android:name=".ui.screen.MusicActivity"
+            android:label="@string/menu_album" />
+        <activity android:name="run.perry.lz.ui.screen.PlayerActivity" />
+        <activity
+            android:name="run.perry.lz.ui.screen.PlaylistActivity"
+            android:label="@string/playlist" />
+        <activity
+            android:name="run.perry.lz.ui.screen.MusicSearchActivity"
+            android:label="@string/search" />
+
+        <service
+            android:name=".player.MusicService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

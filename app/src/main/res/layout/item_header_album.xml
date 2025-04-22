@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/black">
+
+    <run.perry.lz.ui.components.RatioImageView
+        android:id="@+id/riv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:height_to_width_ratio="0.3125" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/riv"
+        android:layout_alignTop="@id/riv"
+        android:layout_alignEnd="@id/riv"
+        android:layout_alignBottom="@id/riv"
+        android:layout_marginHorizontal="@dimen/dp2"
+        android:layout_marginTop="@dimen/dp4"
+        android:layout_marginBottom="@dimen/dp2"
+        app:cardBackgroundColor="@color/normal"
+        app:cardCornerRadius="@dimen/dp2"
+        app:cardElevation="@dimen/dp2">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:banner_loop_time="5000" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

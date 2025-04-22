@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bosphere.fadingedgelayout.FadingEdgeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:fel_edge="top|bottom"
+    app:fel_size_bottom="@dimen/dp32"
+    app:fel_size_top="@dimen/dp32"
+    tools:background="@drawable/shape_jukebox_bg_default">
+
+    <me.wcy.lrcview.LrcView
+        android:id="@+id/lrc_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lrcAnimationDuration="1000"
+        app:lrcCurrentTextColor="@color/white"
+        app:lrcDividerHeight="@dimen/dp16"
+        app:lrcLabel="@string/lrc_no"
+        app:lrcNormalTextColor="@color/translucent_white_p50"
+        app:lrcNormalTextSize="@dimen/sp14"
+        app:lrcPadding="@dimen/dp16"
+        app:lrcPlayDrawable="@drawable/ic_lrc_play"
+        app:lrcTextGravity="center"
+        app:lrcTextSize="@dimen/sp16"
+        app:lrcTimeTextColor="@color/translucent_white_p50"
+        app:lrcTimeTextSize="@dimen/sp12"
+        app:lrcTimelineColor="@color/translucent_white_p50"
+        app:lrcTimelineHeight="@dimen/dp1"
+        app:lrcTimelineTextColor="@color/translucent_white_p50" />
+
+</com.bosphere.fadingedgelayout.FadingEdgeLayout>

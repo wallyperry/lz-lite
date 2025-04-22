@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/normal"
+    tools:layout_height="160dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_shadow_to_bottom"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingVertical="@dimen/dp6"
+        android:paddingStart="@dimen/dp10"
+        android:paddingEnd="@dimen/dp64"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp12"
+        android:textStyle="bold"
+        tools:text="萌通加速" />
+
+</RelativeLayout>

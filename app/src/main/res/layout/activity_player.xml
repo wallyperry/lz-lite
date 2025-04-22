@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<run.perry.lz.ui.components.JukeboxBgLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/jukebox_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    app:backgroundEnable="true"
+    tools:background="@drawable/shape_jukebox_bg_default">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/status_bar_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:layout_height="@dimen/dp26" />
+
+        <!--Title-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:background="?attr/actionBarItemBackground"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/white" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <run.perry.lz.ui.components.MarqueeTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    android:textStyle="bold"
+                    tools:text="你离开了南京，从此没有人和我说话" />
+
+                <run.perry.lz.ui.components.MarqueeTextView
+                    android:id="@+id/tv_artist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/translucent_white_p80"
+                    android:textSize="@dimen/sp12"
+                    tools:text="李志 - 二零零九年十月十六日事件" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ib_right"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:background="?attr/actionBarItemBackground"
+                android:src="@drawable/ic_more_vert"
+                android:tint="@color/white" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <FrameLayout
+            android:id="@+id/player_content"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+
+        <!--Bottom-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--SeekBar-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp32"
+                android:paddingVertical="@dimen/dp6">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_time_current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/duration_default"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/tv_time_duration"
+                    android:layout_toEndOf="@id/tv_time_current"
+                    android:progressTint="@color/white"
+                    android:secondaryProgressTint="@color/white_e"
+                    android:thumbTint="@color/white"
+                    android:tickMarkTint="@color/white"
+                    tools:progress="25"
+                    tools:secondaryProgress="50" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_time_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/duration_default"
+                    android:textColor="@color/translucent_white_p50"
+                    android:textSize="@dimen/sp10"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <!--Controller-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp12"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp16">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ib_play_mode"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="?attr/actionBarItemBackground"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/level_list_play_mode"
+                    android:tint="@color/translucent_white_p80" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!--Previous-->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ib_prev"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@color/transparent"
+                    android:padding="@dimen/dp10"
+                    android:rotation="180"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_player_next"
+                    android:tint="@color/white" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!--Play & Pause & Loading-->
+                <RelativeLayout
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:indeterminate="true"
+                        android:visibility="gone"
+                        app:indicatorColor="@color/white"
+                        app:indicatorSize="@dimen/dp24"
+                        app:indicatorTrackGapSize="@dimen/dp2"
+                        app:trackColor="@color/white"
+                        app:trackThickness="@dimen/dp3" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/ib_play_pause"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_bar_play"
+                        android:tint="@color/white"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!--Next-->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ib_next"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="@color/transparent"
+                    android:padding="@dimen/dp10"
+                    android:rotation="0"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_player_next"
+                    android:tint="@color/white" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ib_playlist"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:background="?attr/actionBarItemBackground"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_bar_playlist"
+                    android:tint="@color/translucent_white_p80" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/navigation_bar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            tools:layout_height="@dimen/dp26" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</run.perry.lz.ui.components.JukeboxBgLayout>

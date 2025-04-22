@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingHorizontal="@dimen/dp16">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:layout_height="@dimen/dp26" />
+
+    <com.lihang.ShadowLayout
+        android:id="@+id/sl_avatar"
+        android:layout_width="@dimen/dp64"
+        android:layout_height="@dimen/dp64"
+        android:layout_below="@id/status_bar_view"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp8"
+        app:hl_cornerRadius="@dimen/dp64"
+        app:hl_strokeColor="@color/translucent"
+        app:hl_strokeWith="@dimen/dp1">
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp1"
+            app:hl_cornerRadius="@dimen/dp64">
+
+            <run.perry.lz.ui.components.SquareImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@mipmap/ic_launcher" />
+
+        </com.lihang.ShadowLayout>
+
+    </com.lihang.ShadowLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sl_avatar"
+        android:layout_alignStart="@id/sl_avatar"
+        android:layout_alignParentEnd="true"
+        android:text="@string/app_name"
+        android:textSize="@dimen/sp14"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_alignStart="@id/tv_title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/dp16"
+        android:textColor="@color/black_6"
+        android:textSize="@dimen/sp12"
+        tools:text="@string/app_name" />
+
+</RelativeLayout>

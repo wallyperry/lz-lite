@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp64">
+
+        <run.perry.lz.ui.components.RatioImageView
+            android:id="@+id/riv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:height_to_width_ratio="0.4255" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/riv"
+            android:layout_alignBottom="@id/riv"
+            android:scaleType="centerInside"
+            app:lottie_autoPlay="true"
+            app:lottie_ignoreDisabledSystemAnimations="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lottie_empty" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="@dimen/dp64"
+        android:layout_marginBottom="@dimen/dp64"
+        android:gravity="center"
+        android:paddingVertical="@dimen/dp16"
+        android:textColor="@color/black_9"
+        android:textSize="@dimen/sp14"
+        tools:text="暂无数据" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

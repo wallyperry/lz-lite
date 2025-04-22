@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:elevation="@dimen/dp4"
+    tools:layout_gravity="bottom">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/dp46"
+        android:layout_height="@dimen/dp46"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp6"
+        android:indeterminate="false"
+        app:indicatorColor="@color/purple_700"
+        app:indicatorTrackGapSize="0dp"
+        app:trackColor="@color/white_e"
+        app:trackCornerRadius="@dimen/dp1"
+        app:trackThickness="@dimen/dp1"
+        tools:progress="25" />
+
+    <com.lihang.ShadowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/progress_bar"
+        android:layout_alignTop="@id/progress_bar"
+        android:layout_alignEnd="@id/progress_bar"
+        android:layout_alignBottom="@id/progress_bar"
+        android:layout_margin="@dimen/dp6"
+        app:clickable="false"
+        app:hl_cornerRadius="@dimen/dp40"
+        app:hl_layoutBackground="@color/transparent">
+
+        <run.perry.lz.ui.components.SpinCoverView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_album" />
+
+    </com.lihang.ShadowLayout>
+
+    <run.perry.lz.ui.components.MarqueeTextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/rl_play_pause"
+        android:layout_toEndOf="@id/progress_bar"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/dp6"
+        android:singleLine="true"
+        android:text="@string/app_name"
+        android:textColor="@color/black_3"
+        android:textSize="@dimen/sp14"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/rl_play_pause"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/ib_playlist">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/black"
+            app:indicatorSize="@dimen/dp18"
+            app:indicatorTrackGapSize="@dimen/dp2"
+            app:trackColor="@color/black"
+            app:trackThickness="@dimen/dp3" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ib_play_pause"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="?attr/actionBarItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bar_play"
+            android:tint="@color/black"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ib_playlist"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="?attr/actionBarItemBackground"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_bar_playlist"
+        android:tint="@color/black" />
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_play_all"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50"
+    android:background="@color/white"
+    android:clickable="true"
+    android:elevation="@dimen/dp2"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_play_all"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_play_circle"
+        android:tint="@color/purple_700" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_play_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ic_play_all"
+        android:text="@string/play_all"
+        android:textColor="@color/black_3"
+        android:textSize="@dimen/sp14"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_play_all_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_9"
+        android:textSize="@dimen/sp12"
+        tools:text="（12）" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ib_down"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/actionBarItemBackground"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_download_circle"
+        android:tint="@color/normal"
+        android:visibility="gone" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

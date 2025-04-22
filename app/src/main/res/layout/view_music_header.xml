@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<run.perry.lz.ui.components.JukeboxBgLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/jukebox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:backgroundEnable="true"
+    tools:background="@drawable/shape_jukebox_bg_default">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/purple_700"
+        app:cardCornerRadius="@dimen/dp8"
+        app:cardElevation="@dimen/dp16"
+        tools:layout_marginHorizontal="@dimen/dp16"
+        tools:layout_marginVertical="@dimen/dp32">
+
+        <run.perry.lz.ui.components.SquareImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_album"
+            tools:tint="@color/white" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cv_cover"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/dp16"
+        android:layout_toEndOf="@id/cv_cover"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp18"
+        android:textStyle="bold"
+        tools:text="在每一条伤心的应天大街上" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_alignStart="@id/tv_name"
+        android:layout_alignEnd="@id/tv_name"
+        android:layout_marginTop="@dimen/dp6"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/white_c"
+        android:textSize="@dimen/sp12"
+        tools:text="2025年" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_year"
+        android:layout_alignStart="@id/tv_name"
+        android:layout_alignEnd="@id/tv_name"
+        android:layout_alignBottom="@id/cv_cover"
+        android:layout_marginTop="@dimen/dp6"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/white_c"
+        android:textSize="@dimen/sp12"
+        tools:text="来自 2012-2013“108个关键词/李志的自我修养2012年度汇报演出”跨年演唱会" />
+
+</run.perry.lz.ui.components.JukeboxBgLayout>
