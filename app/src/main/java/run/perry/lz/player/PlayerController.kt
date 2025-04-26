@@ -14,6 +14,7 @@ interface PlayerController {
     val bufferingPercent: StateFlow<Int>
     val bufferedPosition: StateFlow<Long>
     val playMode: StateFlow<PlayMode>
+    val sleepTimer: LiveData<Long>
 
     @MainThread
     fun add(song: MediaItem)
@@ -59,4 +60,13 @@ interface PlayerController {
 
     @MainThread
     fun isPlaying(songId: String?): Boolean
+
+    @MainThread
+    fun setSleepTimer(min: Long)
+
+    @MainThread
+    fun stopSleepTimer()
+
+    @MainThread
+    fun isSleepTimer(): Boolean
 }

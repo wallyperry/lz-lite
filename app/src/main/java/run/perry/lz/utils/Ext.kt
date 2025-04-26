@@ -20,6 +20,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.core.context.GlobalContext
 import run.perry.lz.databinding.ViewRvStateBinding
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 fun appContext(): Context = GlobalContext.get().get()
 
@@ -100,3 +102,40 @@ fun Activity.inflateStateView(
         tvMsg.setOnClickListener { click.invoke() }
     }
 }.root
+
+@SuppressLint("DefaultLocale")
+fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
+
+    val defaultFormat = if (isAlbum) "%02dm:%02ds" else "%02d:%02d"
+
+    val hours = TimeUnit.MILLISECONDS.toHours(this)
+    val minutes = TimeUnit.MILLISECONDS.toMinutes(this)
+    val seconds = TimeUnit.MILLISECONDS.toSeconds(this)
+
+    if (minutes < 60) {
+        String.format(
+            Locale.getDefault(), defaultFormat,
+            minutes,
+            seconds - TimeUnit.MINUTES.toSeconds(minutes)
+        )
+    } else {
+        // https://stackoverflow.com/a/9027379
+        when {
+            isSeekBar -> String.format(
+                "%02d:%02d:%02d",
+                hours,
+                minutes - TimeUnit.HOURS.toMinutes(hours),
+                seconds - TimeUnit.MINUTES.toSeconds(minutes)
+            )
+            else -> String.format(
+                "%02dh:%02dm",
+                hours,
+                minutes - TimeUnit.HOURS.toMinutes(hours)
+            )
+        }
+    }
+
+} catch (e: Exception) {
+    e.printStackTrace()
+    ""
+}

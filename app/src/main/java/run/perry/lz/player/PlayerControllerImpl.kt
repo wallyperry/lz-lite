@@ -1,5 +1,6 @@
 package run.perry.lz.player
 
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.media3.common.C
@@ -21,6 +22,7 @@ import run.perry.lz.data.room.DatabaseManager
 import run.perry.lz.utils.toMediaItem
 import run.perry.lz.utils.toSongEntity
 import run.perry.lz.utils.toastError
+import java.util.concurrent.TimeUnit
 
 class PlayerControllerImpl(
     private val player: Player
@@ -53,6 +55,11 @@ class PlayerControllerImpl(
     private val _playMode = MutableStateFlow(PlayMode.valueOf(store.playMode))
     override val playMode: StateFlow<PlayMode> = _playMode
     private var audioSessionId = 0
+
+    private var mSleepTimer: CountDownTimer? = null
+
+    private val _sleepTimer = MutableLiveData<Long>(0)
+    override val sleepTimer: LiveData<Long> = _sleepTimer
 
     init {
         player.playWhenReady = false
@@ -108,7 +115,7 @@ class PlayerControllerImpl(
 
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
-                "播放失败(${error.errorCodeName},${error.localizedMessage})".toastError()
+                "播放失败".toastError()
                 next()
             }
 
@@ -439,4 +446,27 @@ class PlayerControllerImpl(
     override fun isPlaying(songId: String?): Boolean {
         return _currentSong.value?.mediaId == songId
     }
+
+    override fun setSleepTimer(min: Long) {
+        stopSleepTimer()
+
+        mSleepTimer = object : CountDownTimer(TimeUnit.MINUTES.toMillis(min), 1000) {
+            override fun onTick(p0: Long) {
+                _sleepTimer.value = p0
+            }
+
+            override fun onFinish() {
+                stop()
+                stopSleepTimer()
+            }
+        }.start()
+    }
+
+    override fun stopSleepTimer() {
+        _sleepTimer.value = 0
+        mSleepTimer?.cancel()
+        mSleepTimer = null
+    }
+
+    override fun isSleepTimer() = mSleepTimer != null
 }

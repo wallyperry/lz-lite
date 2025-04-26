@@ -34,8 +34,6 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
 
     private lateinit var fragmentSwitcher: FragmentSwitcher
 
-    private val mSleepTimerSheet by lazy { SleepTimerSheet() }
-
     override fun main() {
         initBar()
 
@@ -186,7 +184,7 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
             it.showDynamicPopup(
                 listOf(
                     "睡眠定时器" to {
-                        mSleepTimerSheet.show(supportFragmentManager, "timer_sleep")
+                        SleepTimerSheet().show(supportFragmentManager, "timer_sleep")
                     }
                 )
             )
