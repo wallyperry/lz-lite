@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp6"
-            android:textColor="@color/blue_007"
+            android:textColor="@color/purple_700"
             android:textSize="@dimen/sp14"
             tools:text="这是警告提示" />
 

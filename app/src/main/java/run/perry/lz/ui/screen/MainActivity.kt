@@ -13,7 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.google.gson.Gson
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.buffer
@@ -29,6 +30,7 @@ import run.perry.lz.databinding.ActivityMainBinding
 import run.perry.lz.databinding.NavHeaderMainBinding
 import run.perry.lz.player.PlayState
 import run.perry.lz.player.PlayerManager
+import run.perry.lz.ui.components.SleepTimerSheet
 import run.perry.lz.utils.ActivityManager
 import run.perry.lz.utils.FragmentSwitcher
 import run.perry.lz.utils.Log
@@ -147,13 +149,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     }
 
     private fun initBar() {
-        ImmersionBar.with(this)
-            .statusBarView(binding.statusBarView)
-            .supportActionBar(true)
-            .navigationBarColor(R.color.white)
-            .statusBarDarkFont(true)
-            .navigationBarDarkIcon(true)
-            .init()
+        immersionBar {
+            supportActionBar(true)
+            statusBarDarkFont(true)
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+            statusBarView(binding.statusBarView)
+        }
 
         setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -164,12 +166,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener {
-            updateSearchHint(it)
-            title = it.title
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
             when (it.itemId) {
-                R.id.nav_album -> fragmentSwitcher.switchTo(AlbumFragment::class)
-                R.id.nav_video -> fragmentSwitcher.switchTo(VideoFragment::class)
+                R.id.nav_album -> {
+                    fragmentSwitcher.switchTo(AlbumFragment::class)
+                    updateSearchHint(it)
+                    title = it.title
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_video -> {
+                    fragmentSwitcher.switchTo(VideoFragment::class)
+                    updateSearchHint(it)
+                    title = it.title
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_timer -> SleepTimerSheet().show(supportFragmentManager, SleepTimerSheet.TAG)
+                R.id.nav_setting -> startActivity(Intent(this, SettingActivity::class.java))
+                R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             }
             true
         }
@@ -183,7 +197,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
         NavHeaderMainBinding.bind(binding.navView.getHeaderView(0)).apply {
             statusBarView.layoutParams = statusBarView.layoutParams.apply {
-                height = ImmersionBar.getStatusBarHeight(this@MainActivity)
+                height = statusBarHeight
             }
 
             ivAvatar.load(AppStore.drawerImg) {
@@ -211,7 +225,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main_toolbar, menu)
+        menuInflater.inflate(R.menu.menu_toolbar_main, menu)
         searchView = (menu?.findItem(R.id.action_search)?.actionView as SearchView?)?.apply {
             queryHint = "请输入关键词"
             findViewById<View>(androidx.appcompat.R.id.search_plate).background = null

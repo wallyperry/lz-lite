@@ -14,6 +14,10 @@ import run.perry.lz.utils.toastWarning
 
 class SleepTimerSheet : BaseBottomSheet<SheetSleepTimerBinding>({ SheetSleepTimerBinding.inflate(it) }) {
 
+    companion object{
+        const val TAG = "timer_sleep"
+    }
+
     private val rvAdapter by lazy { SleepTimerAdapter() }
 
     override fun main() {

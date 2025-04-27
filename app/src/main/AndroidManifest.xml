@@ -40,6 +40,7 @@
 
         <activity
             android:name=".ui.BootActivity"
+            android:configChanges="uiMode"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,17 +49,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.screen.MainActivity" />
+        <activity
+            android:name=".ui.screen.MainActivity"
+            android:configChanges="uiMode"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.screen.MusicActivity"
+            android:configChanges="uiMode"
             android:label="@string/menu_album" />
-        <activity android:name="run.perry.lz.ui.screen.PlayerActivity" />
         <activity
-            android:name="run.perry.lz.ui.screen.PlaylistActivity"
+            android:name=".ui.screen.PlayerActivity"
+            android:configChanges="uiMode" />
+        <activity
+            android:name=".ui.screen.PlaylistActivity"
+            android:configChanges="uiMode"
             android:label="@string/playlist" />
         <activity
-            android:name="run.perry.lz.ui.screen.MusicSearchActivity"
+            android:name=".ui.screen.MusicSearchActivity"
+            android:configChanges="uiMode"
             android:label="@string/search" />
+        <activity
+            android:name=".ui.screen.SettingActivity"
+            android:configChanges="uiMode"
+            android:label="@string/nav_setting" />
+        <activity
+            android:name=".ui.screen.AboutActivity"
+            android:configChanges="uiMode"
+            android:label="@string/nav_about" />
 
         <service
             android:name=".player.MusicService"

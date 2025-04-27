@@ -5,7 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -101,8 +101,12 @@ class MusicSearchActivity : BaseActivity<ActivitySearchMusicBinding>({ ActivityS
     }
 
     private fun initBar() {
-        ImmersionBar.with(this).statusBarView(binding.statusBarView).statusBarDarkFont(true)
-            .navigationBarColor(R.color.white).navigationBarDarkIcon(true).init()
+        immersionBar {
+            statusBarView(binding.statusBarView)
+            statusBarDarkFont(true)
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+        }
 
         binding.apply {
             ibBack.setOnClickListener { finish() }

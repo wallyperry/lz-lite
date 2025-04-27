@@ -3,6 +3,8 @@ package run.perry.lz.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.util.DisplayMetrics
@@ -105,13 +107,10 @@ fun Activity.inflateStateView(
 
 @SuppressLint("DefaultLocale")
 fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
-
     val defaultFormat = if (isAlbum) "%02dm:%02ds" else "%02d:%02d"
-
     val hours = TimeUnit.MILLISECONDS.toHours(this)
     val minutes = TimeUnit.MILLISECONDS.toMinutes(this)
     val seconds = TimeUnit.MILLISECONDS.toSeconds(this)
-
     if (minutes < 60) {
         String.format(
             Locale.getDefault(), defaultFormat,
@@ -127,6 +126,7 @@ fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
                 minutes - TimeUnit.HOURS.toMinutes(hours),
                 seconds - TimeUnit.MINUTES.toSeconds(minutes)
             )
+
             else -> String.format(
                 "%02dh:%02dm",
                 hours,
@@ -134,8 +134,21 @@ fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
             )
         }
     }
-
 } catch (e: Exception) {
     e.printStackTrace()
     ""
+}
+
+fun String?.copyToClipboard() {
+    if (isNullOrEmpty()) {
+        "复制失败".toastError()
+        return
+    }
+    try {
+        val cm = appContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cm.setPrimaryClip(ClipData.newPlainText(this, this))
+        "已复制".toastSuccess()
+    } catch (_: Exception) {
+        "复制失败".toastError()
+    }
 }

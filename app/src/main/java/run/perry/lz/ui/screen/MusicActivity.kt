@@ -7,7 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -117,12 +118,11 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>({ ActivityMusicBinding.
     }
 
     private fun initBar() {
-        ImmersionBar.with(this)
-            .navigationBarColor(R.color.white)
-            .navigationBarDarkIcon(true)
-            .init()
+        immersionBar {
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+        }
 
-        val statusBarHeight = ImmersionBar.getStatusBarHeight(this)
         binding.run {
             tvTitle.text = title
             toolbar.setParams(h = statusBarHeight + R.dimen.dp50.asDimenPx)

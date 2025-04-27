@@ -17,4 +17,9 @@
     <string name="lrc_no">暂无歌词</string>
     <string name="lrc_loading">歌词加载中...</string>
     <string name="search">搜索</string>
+    <string name="nav_other">其他</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_time">定时</string>
+    <string name="nav_about">关于</string>
+    <string name="more">更多</string>
 </resources>

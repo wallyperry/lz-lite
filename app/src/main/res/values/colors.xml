@@ -4,21 +4,10 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
 
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-
-    <color name="trans_1a000">#1A000000</color>
-    <color name="trans_1a370">#1A3700B3</color>
-    <color name="trans_9a000">#9A000000</color>
-    <color name="trans_e1000">#E1000000</color>
     <color name="trans_1a047">#1A0478FA</color>
     <color name="trans_1a6ac">#1A6AC043</color>
     <color name="trans_1ae25">#1AE2534C</color>
     <color name="trans_1aeba">#1AEBAC40</color>
-    <color name="trans_7aced">#7ACED4DA</color>
-    <color name="trans_7a677">#7A6777EF</color>
-    <color name="trans_7a007">#7A007BFF</color>
-    <color name="trans_9a677">#9A6777EF</color>
 
     <color name="transparent">#00000000</color>
     <color name="translucent">@color/translucent_black_p50</color>
@@ -46,9 +35,7 @@
     <color name="black_3">#FF333333</color>
     <color name="black_5">#FF555555</color>
     <color name="black_6">#FF666666</color>
-    <color name="black_6c7">#FF6C757D</color>
     <color name="black_9">#FF999999</color>
-    <color name="black_90a">#FF90A7B2</color>
 
     <color name="white">#FFFFFFFF</color>
     <color name="white_a">#FFAAAAAA</color>
@@ -69,36 +56,12 @@
     <color name="white_f8f">#FFF8F9FC</color>
     <color name="white_fdf">#FFFDFDFF</color>
 
-    <color name="blue_007">#FF007BFF</color>
-    <color name="blue_047">#FF0478FA</color>
-    <color name="blue_054">#FF054D9E</color>
-    <color name="blue_1d3">#FF1D3957</color>
-    <color name="blue_080">#FF080E2A</color>
-    <color name="blue_1f4">#FF1F4B74</color>
+
     <color name="blue_677">#FF6777EF</color>
-    <color name="blue_b0d">#FFB0D3FD</color>
-    <color name="blue_d8e">#FFD8E9F9</color>
-
-    <color name="yellow_e1c">#FFE1C282</color>
     <color name="yellow_eba">#FFEBAC40</color>
-    <color name="yellow_d1a">#FFD1AA67</color>
-    <color name="yellow_fb1">#FFFFB119</color>
-    <color name="yellow_ffa">#FFFFAC5D</color>
-
-    <color name="red">#FFFF0000</color>
-    <color name="red_742">#FF74290E</color>
-    <color name="red_h9d">#FFF9DCD1</color>
-    <color name="red_e04">#FFE04F1A</color>
     <color name="red_e25">#FFE2534C</color>
-    <color name="red_ff1">#FFFF1744</color>
-
-    <color name="green">#FF00C853</color>
-    <color name="green_e4e">#FFE4EFD8</color>
     <color name="green_6ac">#FF6AC043</color>
-    <color name="greed_82b">#FF82B54B</color>
 
     <color name="normal">#FFCDD5DD</color>
-    <color name="positive">#FFFF4081</color>
 
-    <color name="sound_quality_tag">@color/red_ff1</color>
 </resources>

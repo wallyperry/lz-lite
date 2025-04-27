@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:elevation="@dimen/dp1"
+        tools:layout_height="@dimen/dp26" />
+
+    <!--Toolbar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:background="@color/white"
+        android:elevation="@dimen/dp1">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_arrow_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_toEndOf="@id/ib_back"
+            android:gravity="center_vertical"
+            android:text="@string/nav_about"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <run.perry.lz.ui.components.SquareImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/dp64"
+        android:layout_height="@dimen/dp64"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp50"
+        android:layout_marginBottom="@dimen/dp16"
+        tools:src="@mipmap/ic_launcher_round" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black_6"
+        android:textSize="@dimen/sp14"
+        tools:text="当前版本：1.0.0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_build_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp4"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white_a"
+        android:textSize="@dimen/sp12"
+        tools:text="编译时间：2025-04-26 22:54" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_check_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_right_more"
+            android:drawableTint="@color/white_c"
+            android:paddingHorizontal="@dimen/dp16"
+            android:paddingVertical="@dimen/dp12"
+            android:text="检查更新"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/sp14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.25"
+            android:background="?attr/colorButtonNormal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_right_more"
+            android:drawableTint="@color/white_c"
+            android:paddingHorizontal="@dimen/dp16"
+            android:paddingVertical="@dimen/dp12"
+            android:text="联系作者"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/sp14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.25"
+            android:background="?attr/colorButtonNormal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_right_more"
+            android:drawableTint="@color/white_c"
+            android:paddingHorizontal="@dimen/dp16"
+            android:paddingVertical="@dimen/dp12"
+            android:text="分享APP"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/sp14" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/dp16"
+        android:textSize="@dimen/sp12"
+        tools:text="© 2025 · 栗子" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

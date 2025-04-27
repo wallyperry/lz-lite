@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -18,6 +18,7 @@ import run.perry.lz.databinding.ActivityPlaylistBinding
 import run.perry.lz.player.PlayerManager
 import run.perry.lz.player.ProxyCacheManager
 import run.perry.lz.ui.adapter.MusicAdapter
+import run.perry.lz.ui.components.TipsDialog
 import run.perry.lz.ui.vm.PlaylistViewModel
 import run.perry.lz.utils.Log
 import run.perry.lz.utils.inflateStateView
@@ -109,12 +110,12 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding>({ ActivityPlaylis
     }
 
     private fun initBar() {
-        ImmersionBar.with(this)
-            .statusBarView(binding.statusBarView)
-            .statusBarDarkFont(true)
-            .navigationBarColor(R.color.white)
-            .navigationBarDarkIcon(true)
-            .init()
+        immersionBar {
+            statusBarView(binding.statusBarView)
+            statusBarDarkFont(true)
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+        }
 
         binding.apply {
             ibBack.setOnClickListener { finish() }
@@ -122,8 +123,13 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding>({ ActivityPlaylis
                 it.showDynamicPopup(
                     listOf(
                         "清空播放列表" to {
-                            PlayerManager.getController().clearPlaylist()
-                            "已清空".toastSuccess()
+                            TipsDialog(this@PlaylistActivity).show {
+                                content("是否确认清空播放列表？")
+                                positive {
+                                    PlayerManager.getController().clearPlaylist()
+                                    "已清空".toastSuccess()
+                                }
+                            }
                         }
                     )
                 )

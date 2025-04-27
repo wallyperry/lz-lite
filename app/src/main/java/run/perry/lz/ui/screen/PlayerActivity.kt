@@ -6,7 +6,8 @@ import android.widget.SeekBar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.navigationBarHeight
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import run.perry.lz.R
@@ -169,14 +170,14 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
     }
 
     private fun initBar() {
-        ImmersionBar.with(this)
-            .statusBarView(binding.statusBarView)
-            .transparentNavigationBar()
-            .navigationBarAlpha(0f)
-            .init()
+        immersionBar {
+            statusBarView(binding.statusBarView)
+            transparentNavigationBar()
+            navigationBarAlpha(0f)
+        }
 
         binding.navigationBarView.layoutParams = binding.navigationBarView.layoutParams.apply {
-            height = ImmersionBar.getNavigationBarHeight(this@PlayerActivity)
+            height = navigationBarHeight
         }
 
         binding.ibBack.setOnClickListener { finish() }
@@ -184,7 +185,7 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
             it.showDynamicPopup(
                 listOf(
                     "睡眠定时器" to {
-                        SleepTimerSheet().show(supportFragmentManager, "timer_sleep")
+                        SleepTimerSheet().show(supportFragmentManager, SleepTimerSheet.TAG)
                     }
                 )
             )

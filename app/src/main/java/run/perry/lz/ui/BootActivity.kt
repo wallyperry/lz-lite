@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ktx.navigationBarHeight
+import com.gyf.immersionbar.ktx.navigationBarWidth
+import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +31,7 @@ class BootActivity : BaseActivity<ActivityBootBinding>({ ActivityBootBinding.inf
     private val mSplashView by lazy {
         SplashView(
             this,
-            ImmersionBar.getStatusBarHeight(this),
+            statusBarHeight,
             3,
             R.mipmap.pic_splash,
             imageClickCallback = { openInBrowser(it) },
@@ -79,14 +82,14 @@ class BootActivity : BaseActivity<ActivityBootBinding>({ ActivityBootBinding.inf
     }
 
     private fun initBar() {
-        ImmersionBar.with(this)
-            .statusBarDarkFont(true)
-            .statusBarView(binding.statusBarView)
-            .transparentNavigationBar()
-            .init()
+        immersionBar {
+            statusBarDarkFont(true)
+            statusBarView(binding.statusBarView)
+            transparentNavigationBar()
+        }
         binding.navigationView.layoutParams = binding.navigationView.layoutParams.apply {
-            width = ImmersionBar.getNavigationBarWidth(this@BootActivity)
-            height = ImmersionBar.getNavigationBarHeight(this@BootActivity)
+            width = navigationBarWidth
+            height = navigationBarHeight
         }
     }
 

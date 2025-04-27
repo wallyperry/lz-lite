@@ -17,10 +17,11 @@ android {
         applicationId = "run.perry.lz"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
-        versionName = "1.0.4"
+        versionCode = 6
+        versionName = "1.0.5"
 
-        resValue("string", "app_name", "栗子Lite")
+        val buildTimeFormat: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(Date())
+        resValue("string", "build_time", buildTimeFormat)
     }
 
     signingConfigs {
@@ -37,6 +38,7 @@ android {
         flavorDimensions("env")
 
         create("official") {
+            resValue("string", "app_name", "栗子Lite")
             buildConfigField(
                 "String", "GATEWAY_ADDRESS",
                 "\"https://gitee.com/wallyperry/lz/raw/master/config.json\""
@@ -126,6 +128,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.updateapp)
     implementation(libs.immersionbar)
+    implementation(libs.immersionbar.ktx)
 
     implementation(libs.github.shadowlayout)
     implementation(libs.github.autosize)
