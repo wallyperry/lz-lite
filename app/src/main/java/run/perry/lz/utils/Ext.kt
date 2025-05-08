@@ -2,24 +2,18 @@ package run.perry.lz.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.RawRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.window.layout.WindowMetricsCalculator
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.core.context.GlobalContext
 import run.perry.lz.databinding.ViewRvStateBinding
 import java.util.Locale
@@ -56,25 +50,6 @@ fun View.setMargin(l: Int, t: Int, r: Int, b: Int) {
     if (layoutParams is ViewGroup.MarginLayoutParams) {
         (layoutParams as ViewGroup.MarginLayoutParams).setMargins(l, t, r, b)
         requestLayout()
-    }
-}
-
-@SuppressLint("RestrictedApi", "VisibleForTests")
-fun Dialog?.disableShapeAnimation() {
-    try {
-        val bottomSheetDialog = this as BottomSheetDialog
-        bottomSheetDialog.behavior.disableShapeAnimations()
-    } catch (ex: Exception) {
-        Log.e("BaseBottomSheet", "disableShapeAnimation Exception:", ex)
-    }
-}
-
-fun Dialog?.applyFullHeightDialog(activity: Activity) {
-    val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity)
-    val height = windowMetrics.bounds.height()
-
-    this?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { bs ->
-        BottomSheetBehavior.from(bs).peekHeight = height
     }
 }
 

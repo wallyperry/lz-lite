@@ -104,7 +104,6 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.window)
     implementation(libs.androidx.viewmodel.ktx)
     implementation(libs.androidx.swiperefresh)
     implementation(libs.android.material)
