@@ -30,7 +30,6 @@ data class Config(
     )
 
     data class Version(
-        val code: Int?,
         val name: String?,
         val title: String?,
         val info: String?,

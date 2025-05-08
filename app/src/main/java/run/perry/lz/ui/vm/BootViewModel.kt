@@ -36,18 +36,18 @@ class BootViewModel(private val api: ApiRepository, private val bannerDao: Banne
                         }
 
                         saveBanner(it?.banner?.list)
-                        AppStore.bannerHeight = it?.banner?.height.orEmpty()
+                        AppStore.run {
+                            bannerHeight = it?.banner?.height.orEmpty()
+                            drawerImg = it?.drawer?.img.orEmpty()
+                            drawerTitle = it?.drawer?.title.orEmpty()
+                            drawerInfo = it?.drawer?.info.orEmpty()
 
-                        AppStore.drawerImg = it?.drawer?.img.orEmpty()
-                        AppStore.drawerTitle = it?.drawer?.title.orEmpty()
-                        AppStore.drawerInfo = it?.drawer?.info.orEmpty()
-
-                        AppStore.versionCode = it?.version?.code ?: 0
-                        AppStore.versionName = it?.version?.name.orEmpty()
-                        AppStore.versionTitle = it?.version?.title.orEmpty()
-                        AppStore.versionInfo = it?.version?.info.orEmpty()
-                        AppStore.versionUrl = it?.version?.url.orEmpty()
-                        AppStore.versionForce = it?.version?.force == true
+                            versionName = it?.version?.name.orEmpty()
+                            versionTitle = it?.version?.title.orEmpty()
+                            versionInfo = it?.version?.info.orEmpty()
+                            versionUrl = it?.version?.url.orEmpty()
+                            versionForce = it?.version?.force == true
+                        }
 
                         sendUiState { copy(ConfigUiState.SUCCESS(it)) }
                     },
