@@ -86,7 +86,7 @@
             android:drawableEnd="@drawable/ic_right_more"
             android:drawableTint="@color/white_c"
             android:paddingHorizontal="@dimen/dp16"
-            android:paddingVertical="@dimen/dp12"
+            android:paddingVertical="@dimen/dp14"
             android:text="检查更新"
             android:textColor="@color/black_3"
             android:textSize="@dimen/sp14" />
@@ -105,7 +105,7 @@
             android:drawableEnd="@drawable/ic_right_more"
             android:drawableTint="@color/white_c"
             android:paddingHorizontal="@dimen/dp16"
-            android:paddingVertical="@dimen/dp12"
+            android:paddingVertical="@dimen/dp14"
             android:text="联系作者"
             android:textColor="@color/black_3"
             android:textSize="@dimen/sp14" />
@@ -124,7 +124,7 @@
             android:drawableEnd="@drawable/ic_right_more"
             android:drawableTint="@color/white_c"
             android:paddingHorizontal="@dimen/dp16"
-            android:paddingVertical="@dimen/dp12"
+            android:paddingVertical="@dimen/dp14"
             android:text="分享APP"
             android:textColor="@color/black_3"
             android:textSize="@dimen/sp14" />

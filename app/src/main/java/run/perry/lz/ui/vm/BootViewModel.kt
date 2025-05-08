@@ -26,10 +26,7 @@ class BootViewModel(private val api: ApiRepository, private val bannerDao: Banne
                 requestAnyWithFlow(
                     showLoading = true,
                     loadingText = "初始化中...",
-                    request = {
-                        delay(500)
-                        api.config(intent.path)
-                    },
+                    request = { api.config(intent.path) },
                     success = {
                         if (!it?.music.isNullOrBlank()) {
                             AppStore.musicApi = it.music
@@ -47,6 +44,9 @@ class BootViewModel(private val api: ApiRepository, private val bannerDao: Banne
                             versionInfo = it?.version?.info.orEmpty()
                             versionUrl = it?.version?.url.orEmpty()
                             versionForce = it?.version?.force == true
+
+                            shareQr = it?.share?.qr.orEmpty()
+                            shareUrl = it?.share?.url.orEmpty()
                         }
 
                         sendUiState { copy(ConfigUiState.SUCCESS(it)) }

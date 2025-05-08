@@ -76,6 +76,10 @@
             android:name=".ui.screen.AboutActivity"
             android:configChanges="uiMode"
             android:label="@string/nav_about" />
+        <activity
+            android:name="run.perry.lz.ui.screen.ShareActivity"
+            android:configChanges="uiMode"
+            android:label="@string/share_app" />
 
         <service
             android:name=".player.MusicService"

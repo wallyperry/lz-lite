@@ -38,7 +38,7 @@ android {
         flavorDimensions("env")
 
         create("official") {
-            resValue("string", "app_name", "栗子Lite")
+            resValue("string", "app_name", "栗子音乐")
             buildConfigField(
                 "String", "GATEWAY_ADDRESS",
                 "\"https://gitee.com/wallyperry/lz/raw/master/config.json\""
@@ -47,7 +47,7 @@ android {
 
         create("beta") {
             applicationIdSuffix = ".beta"
-            resValue("string", "app_name", "栗子LiteBeta")
+            resValue("string", "app_name", "栗子Beta")
             buildConfigField(
                 "String", "GATEWAY_ADDRESS",
                 "\"https://gitee.com/wallyperry/lz/raw/master/config.json\""

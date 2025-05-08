@@ -83,6 +83,16 @@ object AppStore {
         defaultValue = false
     )
 
+    var shareQr: String by store.string(
+        key = "share_qr",
+        defaultValue = ""
+    )
+
+    var shareUrl: String by store.string(
+        key = "share_url",
+        defaultValue = ""
+    )
+
     var playMode: Int by store.int(
         key = "play_mode",
         defaultValue = 0

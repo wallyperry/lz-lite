@@ -49,7 +49,7 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>({ FragmentAlbumBinding.
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 mViewModel.allAlbumsSortedByYear.collectLatest {
-                    delay(300)
+                    delay(350)
                     rvAdapter.submitList(it)
                     rvAdapter.stateView = requireActivity().inflateStateView(R.raw.lottie_empty, "暂无数据")
                     Log.d("load album list: submit size -> ${it.size}")

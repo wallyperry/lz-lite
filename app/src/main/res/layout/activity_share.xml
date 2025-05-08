@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:elevation="@dimen/dp1"
+        tools:layout_height="@dimen/dp26" />
+
+    <!--Toolbar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:background="@color/white"
+        android:elevation="@dimen/dp1">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_arrow_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_toEndOf="@id/ib_back"
+            android:gravity="center_vertical"
+            android:text="@string/share_app"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp64"
+            app:hl_cornerRadius="@dimen/dp12"
+            app:hl_layoutBackground="@color/white">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <run.perry.lz.ui.components.SquareImageView
+                    android:id="@+id/iv_qr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp12"
+                    android:layout_marginTop="@dimen/dp12"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_scan_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp12"
+                    android:layout_marginTop="@dimen/dp6"
+                    android:layout_marginBottom="@dimen/dp12"
+                    android:gravity="center"
+                    android:textColor="@color/black_9"
+                    android:textSize="@dimen/sp18"
+                    tools:text="扫码下载栗子音乐APP" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.lihang.ShadowLayout>
+
+        <com.lihang.ShadowLayout
+            android:id="@+id/sl_copy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="@dimen/dp32"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/dp12"
+            app:clickable="true"
+            app:hl_cornerRadius="@dimen/dp38"
+            app:hl_endColor="@color/purple_700"
+            app:hl_startColor="@color/purple_500">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="复制下载链接"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp14" />
+
+        </com.lihang.ShadowLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="7" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

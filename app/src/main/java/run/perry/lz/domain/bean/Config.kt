@@ -5,7 +5,8 @@ data class Config(
     val splash: Splash?,
     val banner: Banner?,
     val drawer: Drawer?,
-    val version: Version?
+    val version: Version?,
+    val share: Share?
 ) {
     data class Splash(
         val img: String?,
@@ -35,5 +36,10 @@ data class Config(
         val info: String?,
         val url: String?,
         val force: Boolean?
+    )
+
+    data class Share(
+        val qr: String?,
+        val url: String?
     )
 }

@@ -1,5 +1,6 @@
 package run.perry.lz.ui.screen
 
+import android.content.Intent
 import com.gyf.immersionbar.ktx.immersionBar
 import run.perry.lz.BuildConfig
 import run.perry.lz.R
@@ -31,7 +32,7 @@ class AboutActivity : BaseActivity<ActivityAboutBinding>({ ActivityAboutBinding.
                     positive("复制") { wx.copyToClipboard() }
                 }
             }
-            tvShare.setOnClickListener { }
+            tvShare.setOnClickListener { startActivity(Intent(this@AboutActivity, ShareActivity::class.java)) }
         }
 
     }

@@ -174,12 +174,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
 
-                R.id.nav_video -> {
-                    fragmentSwitcher.switchTo(VideoFragment::class)
-                    updateSearchHint(it)
-                    title = it.title
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
+                //R.id.nav_video -> {
+                //    fragmentSwitcher.switchTo(VideoFragment::class)
+                //    updateSearchHint(it)
+                //    title = it.title
+                //    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                //}
 
                 R.id.nav_timer -> SleepTimerSheet().show(supportFragmentManager, SleepTimerSheet.TAG)
                 R.id.nav_setting -> startActivity(Intent(this, SettingActivity::class.java))
@@ -219,7 +219,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private fun updateSearchHint(item: MenuItem) {
         searchView?.queryHint = when (item.itemId) {
             R.id.nav_album -> "搜索歌曲"
-            R.id.nav_video -> "搜索视频"
+            //R.id.nav_video -> "搜索视频"
             else -> "请输入关键词"
         }
     }
