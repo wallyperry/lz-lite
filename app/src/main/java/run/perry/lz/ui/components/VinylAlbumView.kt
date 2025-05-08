@@ -51,7 +51,7 @@ class VinylAlbumView @JvmOverloads constructor(
 
     private val rotationAnimator by lazy {
         ValueAnimator.ofFloat(0f, 360f).apply {
-            duration = 20000
+            duration = 25000
             repeatCount = ValueAnimator.INFINITE
             interpolator = LinearInterpolator()
             addUpdateListener(rotationUpdateListener)

@@ -20,7 +20,7 @@ class SpinCoverView @JvmOverloads constructor(
     private var isManuallyPaused = false
 
     private val valueAnimator = ValueAnimator.ofFloat(0f, 360f).apply {
-        duration = 20000L
+        duration = 25000L
         interpolator = LinearInterpolator()
         repeatCount = ValueAnimator.INFINITE
         repeatMode = ValueAnimator.RESTART

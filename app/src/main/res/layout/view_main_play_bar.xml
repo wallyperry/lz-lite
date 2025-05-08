@@ -12,8 +12,8 @@
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/dp46"
-        android:layout_height="@dimen/dp46"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dp6"
         android:indeterminate="false"

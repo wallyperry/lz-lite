@@ -5,7 +5,6 @@ import run.perry.lz.BuildConfig
 import run.perry.lz.data.store.Store
 import run.perry.lz.data.store.asStoreProvider
 import run.perry.lz.domain.http.utils.extractDomain
-import run.perry.lz.player.PlayMode
 import run.perry.lz.utils.appContext
 
 object AppStore {
@@ -51,11 +50,6 @@ object AppStore {
     var drawerInfo: String by store.string(
         key = "drawer_info",
         defaultValue = ""
-    )
-
-    var versionCode: Int by store.int(
-        key = "latest_version_code",
-        defaultValue = 0
     )
 
     var versionName: String by store.string(

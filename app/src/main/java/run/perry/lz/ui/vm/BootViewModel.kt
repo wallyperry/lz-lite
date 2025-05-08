@@ -1,7 +1,6 @@
 package run.perry.lz.ui.vm
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import run.perry.lz.base.BaseViewModel
 import run.perry.lz.base.IUiIntent
