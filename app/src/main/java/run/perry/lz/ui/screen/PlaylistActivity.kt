@@ -118,7 +118,7 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding>({ ActivityPlaylis
         }
 
         binding.apply {
-            ibBack.setOnClickListener { finish() }
+            ibBack.setOnClickListener { backPressed() }
             ibMore.setOnClickListener {
                 it.showDynamicPopup(
                     listOf(

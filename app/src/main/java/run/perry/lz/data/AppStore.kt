@@ -52,6 +52,11 @@ object AppStore {
         defaultValue = ""
     )
 
+    var versionCode: Int by store.int(
+        key = "latest_version_code",
+        defaultValue = 0
+    )
+
     var versionName: String by store.string(
         key = "latest_version_name",
         defaultValue = ""
@@ -75,6 +80,16 @@ object AppStore {
     var versionForce: Boolean by store.boolean(
         key = "latest_version_force",
         defaultValue = false
+    )
+
+    var contactTitle: String by store.string(
+        key = "contact_title",
+        defaultValue = ""
+    )
+
+    var contactContent: String by store.string(
+        key = "contact_content",
+        defaultValue = ""
     )
 
     var shareQr: String by store.string(

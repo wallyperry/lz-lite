@@ -1,40 +1,56 @@
 package run.perry.lz.utils
 
 import android.app.Activity
-import constant.UiType
-import model.UiConfig
-import model.UpdateConfig
+import com.azhon.appupdate.manager.DownloadManager
 import run.perry.lz.BuildConfig
 import run.perry.lz.R
 import run.perry.lz.data.AppStore
-import update.UpdateAppUtils
 import kotlin.math.max
 
 fun Activity.checkVersionUpdate(showNoUpdate: Boolean = false) {
-    if (compareVersion(AppStore.versionName)) {
-        val uiConfig = UiConfig().apply {
-            uiType = UiType.PLENTIFUL
-            titleTextSize = 18f
-        }
-        val updateConfig = UpdateConfig().apply {
-            isDebug = BuildConfig.DEBUG
-            force = AppStore.versionForce
-            apkSavePath = "${appContext().cacheDir.absolutePath}/apk_cache"
-            apkSaveName = "${System.currentTimeMillis()}"
-            isShowNotification = false
-            notifyImgRes = R.mipmap.ic_launcher
-            showDownloadingToast = true
-            alwaysShowDownLoadDialog = true
-        }
-        UpdateAppUtils.getInstance().apkUrl(AppStore.versionUrl)
-            .updateTitle(AppStore.versionTitle.ifBlank { "发现新版本" })
-            .updateContent(AppStore.versionInfo.ifBlank { "最新版本：${AppStore.versionName}" })
-            .updateConfig(updateConfig)
-            .uiConfig(uiConfig)
-            .update()
+    if (AppStore.versionCode <= BuildConfig.VERSION_CODE && showNoUpdate) {
+        "当前已是最新版本".toastSuccess()
         return
     }
-    if (showNoUpdate) "已是最新版本".toastSuccess()
+
+    DownloadManager.Builder(this)
+        .apkUrl(AppStore.versionUrl)
+        .apkName("${System.currentTimeMillis()}.apk")
+        .apkVersionCode(AppStore.versionCode)
+        .apkVersionName(AppStore.versionName)
+        .apkDescription(AppStore.versionInfo.ifBlank { "最新版本：${AppStore.versionName}" })
+        .forcedUpgrade(AppStore.versionForce)
+        .showNewerToast(showNoUpdate)
+        .showNotification(true)
+        .showBgdToast(true)
+        .smallIcon(R.mipmap.ic_launcher)
+        .enableLog(BuildConfig.DEBUG)
+        .build().download()
+
+    //if (compareVersion(AppStore.versionName)) {
+    //val uiConfig = UiConfig().apply {
+    //    uiType = UiType.PLENTIFUL
+    //    titleTextSize = 18f
+    //}
+    //val updateConfig = UpdateConfig().apply {
+    //    isDebug = BuildConfig.DEBUG
+    //    force = AppStore.versionForce
+    //    apkSavePath = "${appContext().cacheDir.absolutePath}/apk_cache"
+    //    apkSaveName = "${System.currentTimeMillis()}"
+    //    isShowNotification = false
+    //    notifyImgRes = R.mipmap.ic_launcher
+    //    showDownloadingToast = true
+    //    alwaysShowDownLoadDialog = true
+    //}
+    //UpdateAppUtils.getInstance().apkUrl(AppStore.versionUrl)
+    //    .updateTitle(AppStore.versionTitle.ifBlank { "发现新版本" })
+    //    .updateContent(AppStore.versionInfo.ifBlank { "最新版本：${AppStore.versionName}" })
+    //    .updateConfig(updateConfig)
+    //    .uiConfig(uiConfig)
+    //    .update()
+    //    return
+    //}
+    //if (showNoUpdate) "已是最新版本".toastSuccess()
 }
 
 /**

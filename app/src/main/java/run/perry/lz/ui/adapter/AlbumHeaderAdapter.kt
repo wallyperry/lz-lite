@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.chad.library.adapter4.BaseSingleItemAdapter
 import com.chad.library.adapter4.fullspan.FullSpanAdapterType
+import com.umeng.analytics.MobclickAgent
 import com.youth.banner.adapter.BannerAdapter
 import com.youth.banner.config.BannerConfig
 import com.youth.banner.config.IndicatorConfig
@@ -17,6 +18,7 @@ import run.perry.lz.data.AppStore
 import run.perry.lz.data.room.entity.BannerEntity
 import run.perry.lz.databinding.ItemHeaderAlbumBannerBinding
 import run.perry.lz.databinding.ItemHeaderAlbumBinding
+import run.perry.lz.utils.UM_EVENT_BANNER
 import run.perry.lz.utils.dp
 import run.perry.lz.utils.openInBrowser
 
@@ -34,6 +36,7 @@ class AlbumHeaderAdapter(private val activity: FragmentActivity) :
             setIndicatorMargins(IndicatorConfig.Margins(0, 0, BannerConfig.INDICATOR_MARGIN, 10.dp))
             setOnBannerListener { data, position ->
                 activity.openInBrowser((data as BannerEntity).url)
+                MobclickAgent.onEventObject(activity, UM_EVENT_BANNER, mapOf("name" to data.title))
             }
         }
     }

@@ -25,6 +25,6 @@ class ShareActivity : BaseActivity<ActivityShareBinding>({ ActivityShareBinding.
             navigationBarColor(R.color.white)
             navigationBarDarkIcon(true)
         }
-        binding.ibBack.setOnClickListener { finish() }
+        binding.ibBack.setOnClickListener { backPressed() }
     }
 }

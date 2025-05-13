@@ -15,6 +15,8 @@ import coil.load
 import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.statusBarHeight
+import com.umeng.analytics.MobclickAgent
+import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.buffer
@@ -61,7 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                     .runningFold(listOf<Long>()) { acc, value ->
                         (acc + value).takeLast(2)
                     }.filter { it.size == 2 && it[1] - it[0] < 2000 }
-                    .collectLatest { ActivityManager.finishAll() }
+                    .collectLatest { ActivityManager.exit(this@MainActivity) }
             }
         }
 
@@ -182,7 +184,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                 //}
 
                 R.id.nav_timer -> SleepTimerSheet().show(supportFragmentManager, SleepTimerSheet.TAG)
-                R.id.nav_setting -> startActivity(Intent(this, SettingActivity::class.java))
+                //R.id.nav_setting -> startActivity(Intent(this, SettingActivity::class.java))
                 R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             }
             true

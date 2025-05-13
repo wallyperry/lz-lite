@@ -2,11 +2,14 @@ package run.perry.lz.ui.screen
 
 import android.content.Intent
 import com.gyf.immersionbar.ktx.immersionBar
+import com.umeng.analytics.MobclickAgent
 import run.perry.lz.BuildConfig
 import run.perry.lz.R
 import run.perry.lz.base.BaseActivity
+import run.perry.lz.data.AppStore
 import run.perry.lz.databinding.ActivityAboutBinding
 import run.perry.lz.ui.components.TipsDialog
+import run.perry.lz.utils.UM_EVENT_AUTHOR
 import run.perry.lz.utils.asString
 import run.perry.lz.utils.checkVersionUpdate
 import run.perry.lz.utils.copyToClipboard
@@ -25,11 +28,24 @@ class AboutActivity : BaseActivity<ActivityAboutBinding>({ ActivityAboutBinding.
 
             tvCheckUpdate.setOnClickListener { checkVersionUpdate(true) }
             tvAuthor.setOnClickListener {
-                val wx = "917351143"
+                if (AppStore.contactContent.isEmpty()) {
+                    "抱歉，作者联系方式暂未公开！"
+                    return@setOnClickListener
+                }
+
                 TipsDialog(this@AboutActivity).show {
-                    title("作者微信")
-                    content(wx)
-                    positive("复制") { wx.copyToClipboard() }
+                    title(AppStore.contactTitle)
+                    content(AppStore.contactContent)
+                    positive("复制") {
+                        AppStore.contactContent.copyToClipboard()
+                        MobclickAgent.onEventObject(
+                            this@AboutActivity, UM_EVENT_AUTHOR,
+                            mapOf(
+                                "title" to AppStore.contactTitle,
+                                "content" to AppStore.contactContent
+                            )
+                        )
+                    }
                 }
             }
             tvShare.setOnClickListener { startActivity(Intent(this@AboutActivity, ShareActivity::class.java)) }
@@ -44,6 +60,6 @@ class AboutActivity : BaseActivity<ActivityAboutBinding>({ ActivityAboutBinding.
             navigationBarColor(R.color.white)
             navigationBarDarkIcon(true)
         }
-        binding.ibBack.setOnClickListener { finish() }
+        binding.ibBack.setOnClickListener { backPressed() }
     }
 }

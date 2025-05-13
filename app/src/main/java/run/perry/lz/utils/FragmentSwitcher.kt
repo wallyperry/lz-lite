@@ -13,6 +13,8 @@ class FragmentSwitcher(
     private var currentFragment: Fragment? = null
     private val fragmentCache = mutableMapOf<String, Fragment>()
 
+    fun isCurrent(fragment: Fragment): Boolean = fragment == currentFragment
+
     /**
      * 切换到指定的 Fragment 类
      */

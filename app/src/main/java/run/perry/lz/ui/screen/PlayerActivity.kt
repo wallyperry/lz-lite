@@ -180,7 +180,7 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
             height = navigationBarHeight
         }
 
-        binding.ibBack.setOnClickListener { finish() }
+        binding.ibBack.setOnClickListener { backPressed() }
         binding.ibRight.setOnClickListener {
             it.showDynamicPopup(
                 listOf(
@@ -190,5 +190,13 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
                 )
             )
         }
+    }
+
+    override fun backPressed() {
+        if (fragmentSwitcher.isCurrent(mLyricFragment)) {
+            fragmentSwitcher.switchTo(mPlayerFragment)
+            return
+        }
+        super.backPressed()
     }
 }

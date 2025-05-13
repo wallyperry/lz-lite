@@ -17,7 +17,7 @@ retrofit = "2.11.0"
 koin = "3.5.6"
 coil = "2.7.0"
 lottie = "6.6.6"
-updateapp = "2.3.0"
+updateapp = "4.3.6"
 immersionbar = "3.2.2"
 shadowlayout = "3.4.1"
 autosize = "v1.2.1"
@@ -28,6 +28,8 @@ lyric = "2.2.1"
 fadingedge = "1.0.0"
 media3 = "1.6.1"
 videocache = "2.7.1"
+umcommon = "9.8.2"
+umasms = "1.8.7.2"
 
 [libraries]
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,7 +58,7 @@ koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
-updateapp = { group = "com.teprinciple", name = "updateapputilsx", version.ref = "updateapp" }
+updateapp = { group = "io.github.azhon", name = "appupdate", version.ref = "updateapp" }
 immersionbar = { group = "com.geyifeng.immersionbar", name = "immersionbar", version.ref = "immersionbar" }
 immersionbar-ktx = { group = "com.geyifeng.immersionbar", name = "immersionbar-ktx", version.ref = "immersionbar" }
 
@@ -81,6 +83,9 @@ media3-datasource-cronet = { group = "androidx.media3", name = "media3-datasourc
 media3-datasource-okhttp = { group = "androidx.media3", name = "media3-datasource-okhttp", version.ref = "media3" }
 
 videocache = { group = "com.danikula", name = "videocache", version.ref = "videocache" }
+
+umeng-common = { group = "com.umeng.umsdk", name = "common", version.ref = "umcommon" }
+umeng-asms = { group = "com.umeng.umsdk", name = "asms", version.ref = "umasms" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

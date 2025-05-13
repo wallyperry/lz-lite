@@ -38,11 +38,15 @@ class BootViewModel(private val api: ApiRepository, private val bannerDao: Banne
                             drawerTitle = it?.drawer?.title.orEmpty()
                             drawerInfo = it?.drawer?.info.orEmpty()
 
+                            versionCode = it?.version?.code ?: 0
                             versionName = it?.version?.name.orEmpty()
                             versionTitle = it?.version?.title.orEmpty()
                             versionInfo = it?.version?.info.orEmpty()
                             versionUrl = it?.version?.url.orEmpty()
                             versionForce = it?.version?.force == true
+
+                            contactTitle = it?.contact?.title.orEmpty()
+                            contactContent = it?.contact?.content.orEmpty()
 
                             shareQr = it?.share?.qr.orEmpty()
                             shareUrl = it?.share?.url.orEmpty()

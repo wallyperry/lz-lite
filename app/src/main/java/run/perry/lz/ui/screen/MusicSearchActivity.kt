@@ -109,7 +109,7 @@ class MusicSearchActivity : BaseActivity<ActivitySearchMusicBinding>({ ActivityS
         }
 
         binding.apply {
-            ibBack.setOnClickListener { finish() }
+            ibBack.setOnClickListener { backPressed() }
             tvTitle.text = "搜索结果"
         }
     }

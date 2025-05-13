@@ -160,7 +160,7 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>({ ActivityMusicBinding.
                 }
             }
 
-            ibBack.setOnClickListener { finish() }
+            ibBack.setOnClickListener { backPressed() }
             ibMore.setOnClickListener {
                 it.showDynamicPopup(
                     listOf(

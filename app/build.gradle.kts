@@ -17,8 +17,8 @@ android {
         applicationId = "run.perry.lz"
         minSdk = 24
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.0.5"
+        versionCode = 3
+        versionName = "1.0.2"
 
         val buildTimeFormat: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(Date())
         resValue("string", "build_time", buildTimeFormat)
@@ -92,7 +92,7 @@ android {
         outputs.all {
             if (this is ApkVariantOutputImpl) {
                 outputFileName =
-                    "Lzlite_${buildFlavor}_v${variant.versionName}_${buildTime}_${buildType}.apk"
+                    "Lzmusic_${buildFlavor}_v${variant.versionName}_${buildTime}_${buildType}.apk"
             }
         }
     }
@@ -150,4 +150,7 @@ dependencies {
     implementation(libs.media3.datasource.okhttp)
 
     implementation(libs.videocache)
+
+    implementation(libs.umeng.common)
+    implementation(libs.umeng.asms)
 }

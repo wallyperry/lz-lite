@@ -17,6 +17,6 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>({ ActivitySettingBi
             navigationBarColor(R.color.white)
             navigationBarDarkIcon(true)
         }
-        binding.ibBack.setOnClickListener { finish() }
+        binding.ibBack.setOnClickListener { backPressed() }
     }
 }
