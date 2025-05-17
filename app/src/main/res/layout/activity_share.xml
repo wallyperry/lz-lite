@@ -70,7 +70,9 @@
                     android:layout_marginHorizontal="@dimen/dp12"
                     android:layout_marginTop="@dimen/dp12"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter" />
+                    android:forceDarkAllowed="false"
+                    android:scaleType="fitCenter"
+                    tools:targetApi="29" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_scan_tip"

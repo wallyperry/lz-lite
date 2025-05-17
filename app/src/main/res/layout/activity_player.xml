@@ -5,9 +5,11 @@
     android:id="@+id/jukebox_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:forceDarkAllowed="false"
     android:keepScreenOn="true"
     app:backgroundEnable="true"
-    tools:background="@drawable/shape_jukebox_bg_default">
+    tools:background="@drawable/shape_jukebox_bg_default"
+    tools:targetApi="29">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

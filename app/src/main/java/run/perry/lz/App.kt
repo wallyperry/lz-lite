@@ -29,8 +29,8 @@ class App : Application() {
         //默认语言
         Locale.setDefault(Locale.CHINA)
 
-        //始终为日间模式
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        //日夜间模式根据设备来
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
         //Room
         DatabaseManager.init(this)
@@ -51,9 +51,6 @@ class App : Application() {
             val player = mediaControllerFuture.get()
             PlayerManager.setPlayer(player)
         }, MoreExecutors.directExecutor())
-
-        //UpdateAppUtils
-        //UpdateAppUtils.init(this)
 
         //Umeng
         UMConfigure.setLogEnabled(BuildConfig.DEBUG)

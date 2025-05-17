@@ -1,8 +1,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:forceDarkAllowed="false"
+    android:shape="rectangle"
+    tools:targetApi="29">
     <gradient
         android:angle="0"
-        android:endColor="?attr/colorPrimaryDark"
-        android:startColor="?attr/colorPrimary"
+        android:endColor="@color/purple_700"
+        android:startColor="@color/purple_500"
         android:type="linear" />
 </shape>

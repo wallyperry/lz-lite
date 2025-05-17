@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Main" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/white_f1f</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Demo.BottomSheetDialog</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
     </style>
 
     <!-- BottomSheets -->
-    <style name="ThemeOverlay.Demo.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="ThemeOverlay.Demo.BottomSheetDialog" parent="@style/Theme.Material3.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.5</item> <!-- 背景遮罩透明度 -->
         <item name="bottomSheetStyle">@style/TransparentBottomSheetStyle</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
     </style>
 
     <style name="TransparentBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
     </style>
 
     <!--BaseDialog-->
-    <style name="dialog_base" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="dialog_base" parent="Theme.Material3.Light.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -33,7 +36,7 @@
     </style>
 
     <!--LoadingDialog-->
-    <style name="LoadingDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="LoadingDialog" parent="Theme.Material3.Light.Dialog">
         <!--此属性控制悬浮窗背景是否变暗-->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- alertDialog窗口背景色 -->
@@ -49,10 +52,11 @@
         <!-- 设置全屏显示 -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
     </style>
 
     <!--TipsDialog-->
-    <style name="dialog_tips" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="dialog_tips" parent="Theme.Material3.Light.Dialog">
         <!--此属性控制悬浮窗背景是否变暗-->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- alertDialog窗口背景色 -->
@@ -68,6 +72,7 @@
         <!-- 设置全屏显示 -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
     </style>
 
     <!-- 唱片机背景 -->

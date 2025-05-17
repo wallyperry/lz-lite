@@ -18,7 +18,9 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:forceDarkAllowed="false"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                tools:targetApi="29">
 
                 <include
                     android:id="@+id/jukebox_layout"
@@ -56,14 +58,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/shape_toolbar_bg"
+        android:forceDarkAllowed="false"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:contentInsetStart="0dp"
-        app:layout_collapseMode="pin" />
+        app:layout_collapseMode="pin"
+        tools:targetApi="29" />
 
     <RelativeLayout
         android:id="@+id/rlTitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp50">
+        android:layout_height="@dimen/dp50"
+        android:forceDarkAllowed="false"
+        tools:targetApi="29">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ib_back"
