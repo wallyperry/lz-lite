@@ -52,9 +52,6 @@ class App : Application() {
             PlayerManager.setPlayer(player)
         }, MoreExecutors.directExecutor())
 
-        //UpdateAppUtils
-        //UpdateAppUtils.init(this)
-
         //Umeng
         UMConfigure.setLogEnabled(BuildConfig.DEBUG)
         UMConfigure.init(this, "68225af979267e0210611322", BuildConfig.FLAVOR, UMConfigure.DEVICE_TYPE_PHONE, "")

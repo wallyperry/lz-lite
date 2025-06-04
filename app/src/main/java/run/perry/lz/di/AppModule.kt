@@ -1,6 +1,6 @@
 package run.perry.lz.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import run.perry.lz.data.room.DatabaseManager
 import run.perry.lz.domain.repository.ApiRepository

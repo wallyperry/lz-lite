@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "run.perry.lz"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "run.perry.lz"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 3
         versionName = "1.0.2"
 
