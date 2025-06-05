@@ -17,8 +17,8 @@ android {
         applicationId = namespace
         minSdk = 24
         targetSdk = compileSdk
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         val buildTimeFormat: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(Date())
         resValue("string", "build_time", buildTimeFormat)
@@ -57,8 +57,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             productFlavors.all {
                 signingConfig =
                     signingConfig ?: signingConfigs.getByName("defaultSigningConfig")
