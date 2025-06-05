@@ -14,9 +14,9 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "run.perry.lz"
+        applicationId = namespace
         minSdk = 24
-        targetSdk = 36
+        targetSdk = compileSdk
         versionCode = 3
         versionName = "1.0.2"
 
