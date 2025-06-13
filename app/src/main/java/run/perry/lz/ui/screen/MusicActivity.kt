@@ -145,7 +145,7 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>({ ActivityMusicBinding.
                 jukebox.setParams(h = (100 + 16 + 32).dp + toolbar.layoutParams.height)
                 cvCover.setMargin(16.dp, 16.dp + toolbar.layoutParams.height, 16.dp, 32.dp)
                 tvName.text = mName.trim().substringAfter("-")
-                tvYear.text = if (mYear.isEmpty()) "未知年份" else "${mYear}年"
+                tvYear.text = if (mYear.isEmpty() || mYear == "9999") "未知年份" else mYear
                 tvInfo.text = mInfo.ifBlank { "暂无详情" }
                 ivCover.load(mCover)
                 jukebox.setBackgroundCover(mCover, 300)

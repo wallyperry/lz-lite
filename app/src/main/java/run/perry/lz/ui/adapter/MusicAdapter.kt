@@ -22,7 +22,7 @@ class MusicAdapter(private val showAlbum: Boolean = false) : BaseQuickAdapter<Mu
 
         holder.binding.apply {
             tvIndex.text = "$index"
-            tvName.text = (item?.name.orEmpty()).trim().substringAfter("-")
+            tvName.text = (item?.name.orEmpty()).trim()
             ivCached.visibility = if (item?.isCached == true) View.VISIBLE else View.GONE
 
             val artist = item?.artist.orEmpty().ifBlank { "李志" }

@@ -145,7 +145,7 @@ dependencies {
     implementation(libs.media3.exo.workmanager)
     implementation(libs.media3.database)
     implementation(libs.media3.datasource)
-    implementation(libs.media3.datasource.rtmp)
+    //implementation(libs.media3.datasource.rtmp)
     implementation(libs.media3.datasource.cronet)
     implementation(libs.media3.datasource.okhttp)
 

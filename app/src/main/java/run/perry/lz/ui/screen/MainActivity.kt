@@ -15,8 +15,6 @@ import coil.load
 import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.statusBarHeight
-import com.umeng.analytics.MobclickAgent
-import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.buffer

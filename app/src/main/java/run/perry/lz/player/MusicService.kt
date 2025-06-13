@@ -34,7 +34,7 @@ class MusicService : MediaSessionService() {
         val dataSourceFactory = DefaultDataSource.Factory(
             appContext(),
             DefaultHttpDataSource.Factory()
-                .setUserAgent("LzLite/${BuildConfig.VERSION_NAME}")
+                .setUserAgent("Lz/${BuildConfig.VERSION_NAME}")
                 .setAllowCrossProtocolRedirects(true)
         )
 
@@ -79,9 +79,9 @@ class MusicService : MediaSessionService() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         player.release()
         session.release()
+        super.onDestroy()
     }
 
 }
