@@ -1,14 +1,9 @@
 package run.perry.lz.ui.screen
 
 import android.content.Intent
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.chad.library.adapter4.QuickAdapterHelper
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import run.perry.lz.R
 import run.perry.lz.base.BaseFragment
@@ -22,6 +17,7 @@ import run.perry.lz.ui.intent.AlbumIntent
 import run.perry.lz.ui.state.AlbumUiState
 import run.perry.lz.ui.vm.AlbumViewModel
 import run.perry.lz.utils.Log
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.inflateStateView
 
 class AlbumFragment : BaseFragment<FragmentAlbumBinding>({ FragmentAlbumBinding.inflate(it) }) {
@@ -34,36 +30,24 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>({ FragmentAlbumBinding.
     override fun main() {
         initRecyclerView()
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.allBanner.collectLatest {
-                    delay(300)
-                    if (it.isNotEmpty() && adapterHelper.beforeAdapterList.isEmpty()) {
-                        adapterHelper.addBeforeAdapter(headerAdapter)
-                        headerAdapter.item = it
-                    }
-                }
+        mViewModel.allBanner.collectLatestOnLifecycle(this) {
+            delay(300)
+            if (it.isNotEmpty() && adapterHelper.beforeAdapterList.isEmpty()) {
+                adapterHelper.addBeforeAdapter(headerAdapter)
+                headerAdapter.item = it
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.allAlbumsSortedByYear.collectLatest {
-                    delay(350)
-                    rvAdapter.submitList(it)
-                    rvAdapter.stateView = requireActivity().inflateStateView(R.raw.lottie_empty, "暂无数据")
-                    Log.d("load album list: submit size -> ${it.size}")
-                }
-            }
+        mViewModel.allAlbumsSortedByYear.collectLatestOnLifecycle(this) {
+            delay(350)
+            rvAdapter.submitList(it)
+            rvAdapter.stateView = requireActivity().inflateStateView(R.raw.lottie_empty, "暂无数据")
+            Log.d("load album list: submit size -> ${it.size}")
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.uiStateFlow.map { it.homeUiState }.collectLatest {
-                    when (it) {
-                        is AlbumUiState.INIT -> {}
-                    }
-                }
+        mViewModel.uiStateFlow.map { it.homeUiState }.collectLatestOnLifecycle(this) {
+            when (it) {
+                is AlbumUiState.INIT -> {}
             }
         }
     }

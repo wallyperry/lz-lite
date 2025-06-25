@@ -1,15 +1,11 @@
 package run.perry.lz.ui.screen
 
 import android.content.Intent
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,6 +16,7 @@ import run.perry.lz.player.PlayerManager
 import run.perry.lz.player.ProxyCacheManager
 import run.perry.lz.ui.adapter.MusicAdapter
 import run.perry.lz.ui.vm.MusicSearchViewModel
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.inflateStateView
 import run.perry.lz.utils.showDynamicPopup
 import run.perry.lz.utils.toMediaItem
@@ -51,22 +48,18 @@ class MusicSearchActivity : BaseActivity<ActivitySearchMusicBinding>({ ActivityS
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.searchMusic(mKeyword).collectLatest {
-                    delay(300)
-                    val list = it.toMutableList()
-                    withContext(Dispatchers.IO) {
-                        it.forEachIndexed { index, item ->
-                            val isCached = ProxyCacheManager.isFullyCached(item.url)
-                            list[index] = item.copy(isCached = isCached)
-                        }
-                    }
-                    rvAdapter.submitList(list)
-                    rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无搜索结果")
-                    binding.tvTitle.text = "找到${list.size}条结果"
+        mViewModel.searchMusic(mKeyword).collectLatestOnLifecycle(this) {
+            delay(300)
+            val list = it.toMutableList()
+            withContext(Dispatchers.IO) {
+                it.forEachIndexed { index, item ->
+                    val isCached = ProxyCacheManager.isFullyCached(item.url)
+                    list[index] = item.copy(isCached = isCached)
                 }
             }
+            rvAdapter.submitList(list)
+            rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无搜索结果")
+            binding.tvTitle.text = "找到${list.size}条结果"
         }
     }
 

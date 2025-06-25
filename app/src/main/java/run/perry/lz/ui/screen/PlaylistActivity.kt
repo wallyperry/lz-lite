@@ -1,14 +1,10 @@
 package run.perry.lz.ui.screen
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +17,7 @@ import run.perry.lz.ui.adapter.MusicAdapter
 import run.perry.lz.ui.components.TipsDialog
 import run.perry.lz.ui.vm.PlaylistViewModel
 import run.perry.lz.utils.Log
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.inflateStateView
 import run.perry.lz.utils.showDynamicPopup
 import run.perry.lz.utils.toMediaItem
@@ -58,25 +55,21 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding>({ ActivityPlaylis
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.playlist.collectLatest {
-                    delay(300)
-                    val musicEntities = it.toMusicEntities()
-                    val list = musicEntities.toMutableList()
-                    withContext(Dispatchers.IO) {
-                        musicEntities.forEachIndexed { index, item ->
-                            val isCached = ProxyCacheManager.isFullyCached(item.url)
-                            list[index] = item.copy(isCached = isCached)
-                            if (item.playing) mCurrentPlayingIndex = index
-                        }
-                    }
-                    rvAdapter.submitList(list)
-                    rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无数据")
-                    binding.tvTitle.text = "$title(${list.size})"
-                    Log.d("load playlist all(musics by playlist): submit size -> ${list.size}")
+        mViewModel.playlist.collectLatestOnLifecycle(this) {
+            delay(300)
+            val musicEntities = it.toMusicEntities()
+            val list = musicEntities.toMutableList()
+            withContext(Dispatchers.IO) {
+                musicEntities.forEachIndexed { index, item ->
+                    val isCached = ProxyCacheManager.isFullyCached(item.url)
+                    list[index] = item.copy(isCached = isCached)
+                    if (item.playing) mCurrentPlayingIndex = index
                 }
             }
+            rvAdapter.submitList(list)
+            rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无数据")
+            binding.tvTitle.text = "$title(${list.size})"
+            Log.d("load playlist all(musics by playlist): submit size -> ${list.size}")
         }
     }
 

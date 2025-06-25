@@ -2,14 +2,11 @@ package run.perry.lz.ui
 
 import android.content.Intent
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.navigationBarHeight
 import com.gyf.immersionbar.ktx.navigationBarWidth
 import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import run.perry.lz.BuildConfig
 import run.perry.lz.R
@@ -22,6 +19,7 @@ import run.perry.lz.ui.intent.BootIntent
 import run.perry.lz.ui.screen.MainActivity
 import run.perry.lz.ui.state.ConfigUiState
 import run.perry.lz.ui.vm.BootViewModel
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.openInBrowser
 
 class BootActivity : BaseActivity<ActivityBootBinding>({ ActivityBootBinding.inflate(it) }) {
@@ -45,37 +43,29 @@ class BootActivity : BaseActivity<ActivityBootBinding>({ ActivityBootBinding.inf
 
         initBar()
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.loadUiIntentFlow.collect {
-                    when (it) {
-                        is LoadUiIntent.Error -> {}
-                        is LoadUiIntent.Loading -> {
-                            if (it.show) loadingDialog.show(it.text) else loadingDialog.dismiss()
-                        }
-                    }
+        mViewModel.loadUiIntentFlow.collectLatestOnLifecycle(this) {
+            when (it) {
+                is LoadUiIntent.Error -> {}
+                is LoadUiIntent.Loading -> {
+                    if (it.show) loadingDialog.show(it.text) else loadingDialog.dismiss()
                 }
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.uiStateFlow.map { it.configUiState }.collect {
-                    when (it) {
-                        is ConfigUiState.INIT -> {
-                            mSplashView.show()
-                            mViewModel.sendUiIntent(BootIntent.GetConfig(BuildConfig.GATEWAY_ADDRESS.extractPath()))
-                        }
-
-                        is ConfigUiState.SUCCESS -> {
-                            mSplashView.updateData(
-                                it.bean?.splash?.img, it.bean?.splash?.url
-                            )
-                        }
-
-                        is ConfigUiState.DONE -> mSplashView.startCountDown()
-                    }
+        mViewModel.uiStateFlow.map { it.configUiState }.collectLatestOnLifecycle(this) {
+            when (it) {
+                is ConfigUiState.INIT -> {
+                    mSplashView.show()
+                    mViewModel.sendUiIntent(BootIntent.GetConfig(BuildConfig.GATEWAY_ADDRESS.extractPath()))
                 }
+
+                is ConfigUiState.SUCCESS -> {
+                    mSplashView.updateData(
+                        it.bean?.splash?.img, it.bean?.splash?.url
+                    )
+                }
+
+                is ConfigUiState.DONE -> mSplashView.startCountDown()
             }
         }
 

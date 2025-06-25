@@ -2,9 +2,6 @@ package run.perry.lz.ui.screen
 
 import android.content.Intent
 import android.view.Gravity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.gyf.immersionbar.ktx.immersionBar
@@ -12,7 +9,6 @@ import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +23,7 @@ import run.perry.lz.ui.vm.MusicViewModel
 import run.perry.lz.utils.Log
 import run.perry.lz.utils.asDimenPx
 import run.perry.lz.utils.asString
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.dp
 import run.perry.lz.utils.inflateStateView
 import run.perry.lz.utils.setMargin
@@ -66,24 +63,20 @@ class MusicActivity : BaseActivity<ActivityMusicBinding>({ ActivityMusicBinding.
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.musicsByAlbum(mName).collectLatest {
-                    delay(300)
-                    val list = it.toMutableList()
-                    withContext(Dispatchers.IO) {
-                        it.forEachIndexed { index, item ->
-                            val isCached = ProxyCacheManager.isFullyCached(item.url)
-                            list[index] = item.copy(isCached = isCached)
-                        }
-                    }
-                    rvAdapter.submitList(list)
-                    rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无数据")
-                    Log.d("load music list(musics by album): submit size -> ${list.size}")
-                    binding.viewPlayAll.tvPlayAllCount.text =
-                        list.takeIf { it.isNotEmpty() }?.let { "（${it.size}）" } ?: ""
+        mViewModel.musicsByAlbum(mName).collectLatestOnLifecycle(this) {
+            delay(300)
+            val list = it.toMutableList()
+            withContext(Dispatchers.IO) {
+                it.forEachIndexed { index, item ->
+                    val isCached = ProxyCacheManager.isFullyCached(item.url)
+                    list[index] = item.copy(isCached = isCached)
                 }
             }
+            rvAdapter.submitList(list)
+            rvAdapter.stateView = inflateStateView(R.raw.lottie_empty, "暂无数据")
+            Log.d("load music list(musics by album): submit size -> ${list.size}")
+            binding.viewPlayAll.tvPlayAllCount.text =
+                list.takeIf { it -> it.isNotEmpty() }?.let { it -> "（${it.size}）" } ?: ""
         }
     }
 

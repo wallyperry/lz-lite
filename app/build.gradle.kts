@@ -39,19 +39,13 @@ android {
 
         create("official") {
             resValue("string", "app_name", "栗子音乐")
-            buildConfigField(
-                "String", "GATEWAY_ADDRESS",
-                "\"https://gitee.com/wallyperry/lz/raw/master/config.json\""
-            )
+            buildConfigField("String", "GATEWAY_ADDRESS", "\"https://gitee.com/wallyperry/lz/raw/master/config.json\"")
         }
 
         create("beta") {
             applicationIdSuffix = ".beta"
             resValue("string", "app_name", "栗子Beta")
-            buildConfigField(
-                "String", "GATEWAY_ADDRESS",
-                "\"https://gitee.com/wallyperry/lz/raw/master/config.json\""
-            )
+            buildConfigField("String", "GATEWAY_ADDRESS", "\"https://gitee.com/wallyperry/lz/raw/master/config.json\"")
         }
     }
 
@@ -59,13 +53,8 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            productFlavors.all {
-                signingConfig =
-                    signingConfig ?: signingConfigs.getByName("defaultSigningConfig")
-            }
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
+            productFlavors.all { signingConfig = signingConfig ?: signingConfigs.getByName("defaultSigningConfig") }
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
         debug {
@@ -91,8 +80,7 @@ android {
         val buildTime: String = SimpleDateFormat("yyyyMMddHHmm", Locale.CHINA).format(Date())
         outputs.all {
             if (this is ApkVariantOutputImpl) {
-                outputFileName =
-                    "Lzmusic_${buildFlavor}_v${variant.versionName}_${buildTime}_${buildType}.apk"
+                outputFileName = "Lzmusic_${buildFlavor}_v${variant.versionName}_${buildTime}_${buildType}.apk"
             }
         }
     }

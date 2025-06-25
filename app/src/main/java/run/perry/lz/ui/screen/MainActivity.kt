@@ -8,9 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
@@ -18,7 +16,6 @@ import com.gyf.immersionbar.ktx.statusBarHeight
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.buffer
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningFold
@@ -36,9 +33,12 @@ import run.perry.lz.utils.FragmentSwitcher
 import run.perry.lz.utils.Log
 import run.perry.lz.utils.asString
 import run.perry.lz.utils.checkVersionUpdate
+import run.perry.lz.utils.collectLatestOnLifecycle
+import run.perry.lz.utils.gone
 import run.perry.lz.utils.toMusicEntity
 import run.perry.lz.utils.toastInfo
 import run.perry.lz.utils.toastWarning
+import run.perry.lz.utils.visible
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 
@@ -55,15 +55,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
         checkVersionUpdate()
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                backPressFlow.buffer().map { System.currentTimeMillis() }
-                    .runningFold(listOf<Long>()) { acc, value ->
-                        (acc + value).takeLast(2)
-                    }.filter { it.size == 2 && it[1] - it[0] < 2000 }
-                    .collectLatest { ActivityManager.exit(this@MainActivity) }
-            }
-        }
+        backPressFlow.buffer().map { System.currentTimeMillis() }
+            .runningFold(listOf<Long>()) { acc, value -> (acc + value).takeLast(2) }
+            .filter { it.size == 2 && it[1] - it[0] < 2000 }
+            .collectLatestOnLifecycle(this) { ActivityManager.exit(this@MainActivity) }
 
         onBackPressedDispatcher.addCallback(
             this, object : OnBackPressedCallback(true) {
@@ -91,36 +86,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().songDuration.collectLatest {
-                    Log.d("song duration: $it")
-                    binding.rlPlayBar.progressBar.max = it.toInt()
-                }
+        PlayerManager.getController().songDuration.collectLatestOnLifecycle(this) {
+            Log.d("song duration: $it")
+            binding.rlPlayBar.progressBar.max = it.toInt()
+        }
+
+        PlayerManager.getController().playProgress.collectLatestOnLifecycle(this) {
+            binding.rlPlayBar.progressBar.apply {
+                if (max > 0) progress = it.toInt()
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playProgress.collectLatest {
-                    binding.rlPlayBar.progressBar.apply {
-                        if (max > 0) progress = it.toInt()
-                    }
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playState.collectLatest {
-                    binding.rlPlayBar.ivCover.syncWithState(it)
-                    when (it) {
-                        PlayState.Idle -> setPlayButton(1)
-                        PlayState.Pause -> setPlayButton(1)
-                        PlayState.Playing -> setPlayButton(2)
-                        PlayState.Preparing -> setPlayButton(0)
-                    }
-                }
+        PlayerManager.getController().playState.collectLatestOnLifecycle(this) {
+            binding.rlPlayBar.ivCover.syncWithState(it)
+            when (it) {
+                PlayState.Idle -> setPlayButton(1)
+                PlayState.Pause -> setPlayButton(1)
+                PlayState.Playing -> setPlayButton(2)
+                PlayState.Preparing -> setPlayButton(0)
             }
         }
     }
@@ -129,19 +112,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         binding.rlPlayBar.run {
             when (state) {
                 0 -> {  //缓冲中
-                    loading.visibility = View.VISIBLE
-                    ibPlayPause.visibility = View.GONE
+                    loading.visible()
+                    ibPlayPause.gone()
                 }
 
                 1 -> {  //暂停中
-                    loading.visibility = View.GONE
-                    ibPlayPause.visibility = View.VISIBLE
+                    loading.gone()
+                    ibPlayPause.visible()
                     ibPlayPause.setImageResource(R.drawable.ic_bar_play)
                 }
 
                 2 -> {  //播放中
-                    loading.visibility = View.GONE
-                    ibPlayPause.visibility = View.VISIBLE
+                    loading.gone()
+                    ibPlayPause.visible()
                     ibPlayPause.setImageResource(R.drawable.ic_bar_pause)
                 }
             }

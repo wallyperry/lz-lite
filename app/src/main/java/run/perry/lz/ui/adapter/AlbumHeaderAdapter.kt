@@ -2,7 +2,6 @@ package run.perry.lz.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +19,9 @@ import run.perry.lz.databinding.ItemHeaderAlbumBannerBinding
 import run.perry.lz.databinding.ItemHeaderAlbumBinding
 import run.perry.lz.utils.UM_EVENT_BANNER
 import run.perry.lz.utils.dp
+import run.perry.lz.utils.gone
 import run.perry.lz.utils.openInBrowser
+import run.perry.lz.utils.visible
 
 class AlbumHeaderAdapter(private val activity: FragmentActivity) :
     BaseSingleItemAdapter<List<BannerEntity>, AlbumHeaderAdapter.VH>(), FullSpanAdapterType {
@@ -58,7 +59,7 @@ class HeaderBannerAdapter(list: List<BannerEntity>) : BannerAdapter<BannerEntity
     override fun onBindView(holder: VH, data: BannerEntity?, position: Int, size: Int) {
         holder.binding.iv.load(data?.img)
         holder.binding.tv.text = data?.title.orEmpty()
-        holder.binding.tv.visibility = if (data?.title.isNullOrBlank()) View.GONE else View.VISIBLE
+        holder.binding.tv.apply { if (data?.title.isNullOrBlank()) gone() else visible() }
     }
 
     class VH(

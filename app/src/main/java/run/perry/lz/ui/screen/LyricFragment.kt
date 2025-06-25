@@ -1,11 +1,6 @@
 package run.perry.lz.ui.screen
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import run.perry.lz.R
 import run.perry.lz.base.BaseFragment
@@ -16,6 +11,7 @@ import run.perry.lz.ui.state.LyricUiState
 import run.perry.lz.ui.vm.LyricViewModel
 import run.perry.lz.utils.LrcCache
 import run.perry.lz.utils.asString
+import run.perry.lz.utils.collectLatestOnLifecycle
 import java.io.File
 
 class LyricFragment(private val click: (() -> Unit)? = null) :
@@ -48,29 +44,21 @@ class LyricFragment(private val click: (() -> Unit)? = null) :
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playProgress.collectLatest {
-                    binding.lrcView.run { if (hasLrc()) updateTime(it) }
-                }
-            }
+        PlayerManager.getController().playProgress.collectLatestOnLifecycle(this) {
+            binding.lrcView.run { if (hasLrc()) updateTime(it) }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                mViewModel.uiStateFlow.map { it.lyricUiState }.collectLatest {
-                    when (it) {
-                        is LyricUiState.INIT -> {}
-                        is LyricUiState.SUCCESS -> binding.lrcView.loadLrc(File(it.filepath))
-                        is LyricUiState.ERROR -> {
-                            val lrcPath = LrcCache.getLrcFilePath(it.item)
-                            if (lrcPath?.isNotEmpty() == true) {
-                                binding.lrcView.loadLrc(File(lrcPath))
-                                return@collectLatest
-                            }
-                            binding.lrcView.setLabel(R.string.lrc_no.asString)
-                        }
+        mViewModel.uiStateFlow.map { it.lyricUiState }.collectLatestOnLifecycle(this) {
+            when (it) {
+                is LyricUiState.INIT -> {}
+                is LyricUiState.SUCCESS -> binding.lrcView.loadLrc(File(it.filepath))
+                is LyricUiState.ERROR -> {
+                    val lrcPath = LrcCache.getLrcFilePath(it.item)
+                    if (lrcPath?.isNotEmpty() == true) {
+                        binding.lrcView.loadLrc(File(lrcPath))
+                        return@collectLatestOnLifecycle
                     }
+                    binding.lrcView.setLabel(R.string.lrc_no.asString)
                 }
             }
         }

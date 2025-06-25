@@ -1,6 +1,5 @@
 package run.perry.lz.ui.components
 
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import run.perry.lz.R
 import run.perry.lz.base.BaseBottomSheet
@@ -8,13 +7,15 @@ import run.perry.lz.databinding.SheetSleepTimerBinding
 import run.perry.lz.domain.model.SleepTimerModel
 import run.perry.lz.player.PlayerManager
 import run.perry.lz.ui.adapter.SleepTimerAdapter
+import run.perry.lz.utils.gone
 import run.perry.lz.utils.toFormattedDuration
 import run.perry.lz.utils.toastSuccess
 import run.perry.lz.utils.toastWarning
+import run.perry.lz.utils.visible
 
 class SleepTimerSheet : BaseBottomSheet<SheetSleepTimerBinding>({ SheetSleepTimerBinding.inflate(it) }) {
 
-    companion object{
+    companion object {
         const val TAG = "timer_sleep"
     }
 
@@ -23,16 +24,16 @@ class SleepTimerSheet : BaseBottomSheet<SheetSleepTimerBinding>({ SheetSleepTime
     override fun main() {
 
         if (PlayerManager.getController().isSleepTimer()) {
-            binding.recyclerView.visibility = View.GONE
-            binding.tvTimer.visibility = View.VISIBLE
+            binding.recyclerView.gone()
+            binding.tvTimer.visible()
             binding.btnPositive.text = "停止"
             PlayerManager.getController().sleepTimer.observe(this) {
-                binding.tvTimer.text = it.toFormattedDuration(false, true)
+                binding.tvTimer.text = it.toFormattedDuration(isAlbum = false, isSeekBar = true)
                 if (it <= 0) dismiss()
             }
         } else {
-            binding.recyclerView.visibility = View.VISIBLE
-            binding.tvTimer.visibility = View.GONE
+            binding.recyclerView.visible()
+            binding.tvTimer.gone()
             binding.btnPositive.text = "确定"
             initRecyclerView()
             val timers = listOf(
@@ -56,7 +57,7 @@ class SleepTimerSheet : BaseBottomSheet<SheetSleepTimerBinding>({ SheetSleepTime
                 "已停止睡眠定时器".toastSuccess()
             } else {
                 val item = rvAdapter.getSelectedItem()
-                if (item == null){
+                if (item == null) {
                     "请选择定时时间".toastWarning()
                     return@setOnClickListener
                 }

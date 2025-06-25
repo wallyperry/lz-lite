@@ -1,15 +1,9 @@
 package run.perry.lz.ui.screen
 
 import android.content.Intent
-import android.view.View
 import android.widget.SeekBar
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.gyf.immersionbar.ktx.immersionBar
 import com.gyf.immersionbar.ktx.navigationBarHeight
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import run.perry.lz.R
 import run.perry.lz.base.BaseActivity
 import run.perry.lz.databinding.ActivityPlayerBinding
@@ -19,10 +13,13 @@ import run.perry.lz.player.PlayerManager
 import run.perry.lz.ui.components.SleepTimerSheet
 import run.perry.lz.utils.FragmentSwitcher
 import run.perry.lz.utils.asString
+import run.perry.lz.utils.collectLatestOnLifecycle
+import run.perry.lz.utils.gone
 import run.perry.lz.utils.showDynamicPopup
 import run.perry.lz.utils.toFormattedDuration
 import run.perry.lz.utils.toMusicEntity
 import run.perry.lz.utils.toastInfo
+import run.perry.lz.utils.visible
 
 class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBinding.inflate(it) }) {
 
@@ -53,34 +50,23 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
         }
 
         //上一曲
-        binding.ibPrev.setOnClickListener {
-            PlayerManager.getController().prev()
-        }
+        binding.ibPrev.setOnClickListener { PlayerManager.getController().prev() }
 
         //播放&暂停
-        binding.ibPlayPause.setOnClickListener {
-            PlayerManager.getController().playPause()
-        }
+        binding.ibPlayPause.setOnClickListener { PlayerManager.getController().playPause() }
 
         //下一曲
-        binding.ibNext.setOnClickListener {
-            PlayerManager.getController().next()
-        }
+        binding.ibNext.setOnClickListener { PlayerManager.getController().next() }
 
         //播放列表
-        binding.ibPlaylist.setOnClickListener {
-            startActivity(Intent(this, PlaylistActivity::class.java))
-        }
+        binding.ibPlaylist.setOnClickListener { startActivity(Intent(this, PlaylistActivity::class.java)) }
 
         binding.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) binding.tvTimeCurrent.text = progress.toLong().toFormattedDuration()
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 PlayerManager.getController().seekTo(binding.seekbar.progress)
             }
@@ -91,79 +77,59 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>({ ActivityPlayerBindi
             it?.toMusicEntity()?.also { entity ->
                 binding.tvName.text = entity.name.orEmpty().ifBlank { R.string.app_name.asString }
                 binding.tvArtist.text = "${entity.artist} - ${entity.album}"
-                binding.tvArtist.visibility = View.VISIBLE
+                binding.tvArtist.visible()
                 binding.jukeboxLayout.setBackgroundCover(entity.cover.orEmpty(), 300)
             } ?: run {
                 binding.tvName.text = R.string.app_name.asString
-                binding.tvArtist.visibility = View.GONE
+                binding.tvArtist.gone()
                 binding.jukeboxLayout.setBackgroundResource(R.drawable.shape_jukebox_bg_default)
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().songDuration.collectLatest {
-                    binding.tvTimeDuration.text = it.toFormattedDuration()
-                    binding.seekbar.max = it.toInt()
-                }
+        PlayerManager.getController().songDuration.collectLatestOnLifecycle(this) {
+            binding.tvTimeDuration.text = it.toFormattedDuration()
+            binding.seekbar.max = it.toInt()
+        }
+
+        PlayerManager.getController().playProgress.collectLatestOnLifecycle(this) {
+            binding.tvTimeCurrent.text = it.toFormattedDuration()
+            binding.seekbar.progress = it.toInt()
+        }
+
+        PlayerManager.getController().bufferedPosition.collectLatestOnLifecycle(this) {
+            binding.seekbar.secondaryProgress = it.toInt()
+        }
+
+        PlayerManager.getController().playState.collectLatestOnLifecycle(this) {
+            when (it) {
+                PlayState.Idle -> setPlayButton(1)
+                PlayState.Pause -> setPlayButton(1)
+                PlayState.Playing -> setPlayButton(2)
+                PlayState.Preparing -> setPlayButton(0)
             }
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playProgress.collectLatest {
-                    binding.tvTimeCurrent.text = it.toFormattedDuration()
-                    binding.seekbar.progress = it.toInt()
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().bufferedPosition.collectLatest {
-                    binding.seekbar.secondaryProgress = it.toInt()
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playState.collectLatest {
-                    when (it) {
-                        PlayState.Idle -> setPlayButton(1)
-                        PlayState.Pause -> setPlayButton(1)
-                        PlayState.Playing -> setPlayButton(2)
-                        PlayState.Preparing -> setPlayButton(0)
-                    }
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playMode.collectLatest {
-                    binding.ibPlayMode.setImageLevel(it.value)
-                }
-            }
+        PlayerManager.getController().playMode.collectLatestOnLifecycle(this) {
+            binding.ibPlayMode.setImageLevel(it.value)
         }
     }
 
     private fun setPlayButton(state: Int) {
         when (state) {
             0 -> {  //缓冲中
-                binding.loading.visibility = View.VISIBLE
-                binding.ibPlayPause.visibility = View.GONE
+                binding.loading.visible()
+                binding.ibPlayPause.gone()
             }
 
             1 -> {  //暂停中
-                binding.loading.visibility = View.GONE
-                binding.ibPlayPause.visibility = View.VISIBLE
+                binding.loading.gone()
+                binding.ibPlayPause.visible()
                 binding.ibPlayPause.setImageResource(R.drawable.ic_bar_play)
             }
 
             2 -> {  //播放中
-                binding.loading.visibility = View.GONE
-                binding.ibPlayPause.visibility = View.VISIBLE
+                binding.loading.gone()
+                binding.ibPlayPause.visible()
                 binding.ibPlayPause.setImageResource(R.drawable.ic_bar_pause)
             }
         }

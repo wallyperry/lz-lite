@@ -6,6 +6,7 @@ import android.view.View
 import run.perry.lz.R
 import run.perry.lz.base.BaseDialog
 import run.perry.lz.databinding.DialogTipsBinding
+import run.perry.lz.utils.gone
 
 class TipsDialog(activity: Activity) : BaseDialog<DialogTipsBinding>(
     { DialogTipsBinding.inflate(it) }, activity, R.style.dialog_tips
@@ -44,12 +45,12 @@ class TipsDialog(activity: Activity) : BaseDialog<DialogTipsBinding>(
     }
 
     fun hideNegative() = apply {
-        binding.tvNegative.visibility = View.GONE
+        binding.tvNegative.gone()
         negative = null
     }
 
     fun hidePositive() = apply {
-        binding.tvPositive.visibility = View.GONE
+        binding.tvPositive.gone()
         positive = null
     }
 

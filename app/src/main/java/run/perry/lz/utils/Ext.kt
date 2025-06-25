@@ -1,6 +1,5 @@
 package run.perry.lz.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -14,6 +13,13 @@ import androidx.annotation.RawRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.core.context.GlobalContext
 import run.perry.lz.databinding.ViewRvStateBinding
 import java.util.Locale
@@ -55,7 +61,7 @@ fun View.setMargin(l: Int, t: Int, r: Int, b: Int) {
 
 fun View.showDynamicPopup(items: List<Pair<String, () -> Unit>>) {
     PopupMenu(context, this).apply {
-        items.forEachIndexed { index, (title, action) ->
+        items.forEachIndexed { index, (title, _) ->
             menu.add(0, index, index, title)
         }
         setOnMenuItemClickListener { item ->
@@ -72,15 +78,15 @@ fun Activity.inflateStateView(
 ): View = ViewRvStateBinding.inflate(LayoutInflater.from(this)).apply {
     lav.setAnimation(lottieRaw)
     if (msg.isBlank()) {
-        tvMsg.visibility = View.INVISIBLE
+        tvMsg.invisible()
     } else {
-        tvMsg.visibility = View.VISIBLE
+        tvMsg.visible()
         tvMsg.text = msg
         tvMsg.setOnClickListener { click.invoke() }
     }
 }.root
 
-@SuppressLint("DefaultLocale")
+
 fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
     val defaultFormat = if (isAlbum) "%02dm:%02ds" else "%02d:%02d"
     val hours = TimeUnit.MILLISECONDS.toHours(this)
@@ -96,6 +102,7 @@ fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
         // https://stackoverflow.com/a/9027379
         when {
             isSeekBar -> String.format(
+                Locale.getDefault(),
                 "%02d:%02d:%02d",
                 hours,
                 minutes - TimeUnit.HOURS.toMinutes(hours),
@@ -103,6 +110,7 @@ fun Long.toFormattedDuration(isAlbum: Boolean, isSeekBar: Boolean) = try {
             )
 
             else -> String.format(
+                Locale.getDefault(),
                 "%02dh:%02dm",
                 hours,
                 minutes - TimeUnit.HOURS.toMinutes(hours)
@@ -126,4 +134,28 @@ fun String?.copyToClipboard() {
     } catch (_: Exception) {
         "复制失败".toastError()
     }
+}
+
+fun <T> Flow<T>.collectLatestOnLifecycle(
+    lifecycleOwner: LifecycleOwner,
+    minActiveState: Lifecycle.State = Lifecycle.State.CREATED,
+    collector: suspend (T) -> Unit
+) {
+    lifecycleOwner.lifecycleScope.launch {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(minActiveState) {
+            collectLatest(collector)
+        }
+    }
+}
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
 }

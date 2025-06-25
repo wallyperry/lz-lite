@@ -3,18 +3,14 @@ package run.perry.lz.ui.screen
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.graphics.drawable.toBitmap
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import coil.Coil
 import coil.request.ImageRequest
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import run.perry.lz.R
 import run.perry.lz.base.BaseFragment
 import run.perry.lz.databinding.FragmentPlayerBinding
-import run.perry.lz.player.PlayerManager
 import run.perry.lz.player.PlayState
+import run.perry.lz.player.PlayerManager
+import run.perry.lz.utils.collectLatestOnLifecycle
 import run.perry.lz.utils.toMusicEntity
 
 class PlayerFragment(private val click: (() -> Unit)? = null) :
@@ -41,16 +37,12 @@ class PlayerFragment(private val click: (() -> Unit)? = null) :
                     .build())
         }
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                PlayerManager.getController().playState.collectLatest {
-                    when (it) {
-                        PlayState.Idle -> binding.vinylAlbumView.pause()
-                        PlayState.Pause -> binding.vinylAlbumView.pause()
-                        PlayState.Playing -> binding.vinylAlbumView.start()
-                        PlayState.Preparing -> binding.vinylAlbumView.pause()
-                    }
-                }
+        PlayerManager.getController().playState.collectLatestOnLifecycle(this) {
+            when (it) {
+                PlayState.Idle -> binding.vinylAlbumView.pause()
+                PlayState.Pause -> binding.vinylAlbumView.pause()
+                PlayState.Playing -> binding.vinylAlbumView.start()
+                PlayState.Preparing -> binding.vinylAlbumView.pause()
             }
         }
     }
