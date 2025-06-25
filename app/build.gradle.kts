@@ -17,8 +17,8 @@ android {
         applicationId = namespace
         minSdk = 24
         targetSdk = compileSdk
-        versionCode = 4
-        versionName = "1.0.3"
+        versionCode = 5
+        versionName = "1.0.4"
 
         val buildTimeFormat: String = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(Date())
         resValue("string", "build_time", buildTimeFormat)
